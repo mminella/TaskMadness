@@ -20,6 +20,7 @@ import java.util.List;
 import io.spring.marchmadness.batch.BracketGeneratingItemReader;
 import io.spring.marchmadness.batch.DeDupingItemProcessor;
 import io.spring.marchmadness.domain.Bracket;
+import io.spring.marchmadness.domain.BracketRepository;
 import io.spring.marchmadness.domain.support.ExponentialDistributionModelTraversalCallback;
 
 import org.springframework.batch.core.Job;
@@ -52,14 +53,14 @@ public class JobConfiguration {
 		BracketGeneratingItemReader itemReader = new BracketGeneratingItemReader();
 
 		itemReader.setTraversalCallback(new ExponentialDistributionModelTraversalCallback());
-		itemReader.setMaxItemCount(10000000);
+		itemReader.setMaxItemCount(1000000);
 		itemReader.setName("bracketGeneratingItemReader");
 
 		return itemReader;
 	}
 
 	@Bean
-	public ItemWriter<Bracket> itemWriter() {
+	public ItemWriter<Bracket> itemWriter(BracketRepository bracketRepository) {
 		return new ItemWriter<Bracket>() {
 			private int brackets = 0;
 
@@ -68,8 +69,9 @@ public class JobConfiguration {
 				brackets += items.size();
 
 				System.out.println("written " + brackets + " brackets");
+
 				for (Bracket item : items) {
-//					System.out.println(item);
+					bracketRepository.save(item);
 				}
 			}
 		};
@@ -83,10 +85,10 @@ public class JobConfiguration {
 	@Bean
 	public Step step1() {
 		return stepBuilderFactory.get("step1")
-				.<Bracket, Bracket>chunk(10000)
+				.<Bracket, Bracket>chunk(1000)
 				.reader(itemReader())
 				.processor(itemProcessor())
-				.writer(itemWriter())
+				.writer(itemWriter(null))
 				.taskExecutor(new SimpleAsyncTaskExecutor())
 				.build();
 	}

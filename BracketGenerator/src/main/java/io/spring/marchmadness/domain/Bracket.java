@@ -15,12 +15,17 @@
  */
 package io.spring.marchmadness.domain;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Source: http://www.geeksforgeeks.org/reverse-level-order-traversal/
  *
  * @author Michael Minella
  */
 public class Bracket {
+
+	@Id
+	private String id;
 
 	private Tree left;
 	private Tree right;
@@ -40,6 +45,10 @@ public class Bracket {
 		this.champion.setRight(this.right.getRoot());
 
 		traversalCallback.execute(this.champion);
+
+		// Remove links to right/left so that they are not stored in duplicate in mongo
+		this.champion.setLeft(null);
+		this.champion.setRight(null);
 	}
 
 	@Override
