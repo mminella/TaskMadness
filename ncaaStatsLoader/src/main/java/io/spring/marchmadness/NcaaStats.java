@@ -20,6 +20,7 @@ package io.spring.marchmadness;
  * @author Glenn Renfro
  */
 public class NcaaStats {
+	private int year;
 	private int rank;
 	private String name;
 	private double rating;
@@ -174,10 +175,19 @@ public class NcaaStats {
 		this.recentRank = recentRank;
 	}
 
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	@Override
 	public String toString() {
 		return "NcaaStats{" +
-				"rank=" + rank +
+				"year=" + year +
+				", rank=" + rank +
 				", name='" + name + '\'' +
 				", rating=" + rating +
 				", win=" + win +

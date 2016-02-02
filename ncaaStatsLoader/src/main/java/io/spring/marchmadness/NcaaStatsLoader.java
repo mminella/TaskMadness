@@ -16,20 +16,9 @@
 
 package io.spring.marchmadness;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 
 /**
  * Retrieves NCAA Stats from USA Today and writes out a csv file with the results.
@@ -41,39 +30,8 @@ public class NcaaStatsLoader {
 
 	private static final String DELIMITER = ",";
 
-	@Bean
-	public LoaderTask LoaderTask() {
-		return new LoaderTask();
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(NcaaStatsLoader.class, args);
 	}
 
-	public static class LoaderTask implements CommandLineRunner {
-
-		@Value("${input.filename:output.csv}")
-		private String inputFileName;
-
-		@Autowired
-		ResourceLoader resourceLoader;
-
-		@Override
-		public void run(String... strings) throws Exception {
-			//loadStats();
-		}
-
-		private void loadStats() throws IOException{
-			Resource resource = resourceLoader.getResource("file:"+inputFileName);
-			File csvFile = resource.getFile();
-			FileReader reader = new FileReader(csvFile);
-			BufferedReader br = new BufferedReader(reader);
-			String s;
-			while((s = br.readLine()) != null) {
-				System.out.println(s);
-			}
-			reader.close();
-		}
-
-	}
 }

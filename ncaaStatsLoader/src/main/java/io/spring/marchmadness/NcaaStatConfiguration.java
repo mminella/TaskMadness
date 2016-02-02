@@ -16,7 +16,7 @@
 
 package io.spring.marchmadness;
 
-import java.util.List;
+import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -26,6 +26,8 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
+import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
@@ -33,7 +35,6 @@ import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.ResourceLoader;
 
 /**
@@ -42,20 +43,20 @@ import org.springframework.core.io.ResourceLoader;
 @Configuration
 @EnableBatchProcessing
 public class NcaaStatConfiguration {
+
 	@Value("${input.filename:output.csv}")
 	private String inputFileName;
 
 	@Bean
 	public ItemReader<NcaaStats> reader(ResourceLoader resourceLoader) {
 		FlatFileItemReader<NcaaStats> reader = new FlatFileItemReader<NcaaStats>();
-		reader.setLinesToSkip(1);
-		reader.setResource(resourceLoader.getResource("file:"+inputFileName));
+		reader.setResource(resourceLoader.getResource("file:" + inputFileName));
 		reader.setLineMapper(new DefaultLineMapper<NcaaStats>() {{
 			setLineTokenizer(new DelimitedLineTokenizer() {{
-				setNames(new String[] { "rank", "name", "rating", "win", "loss","schedl",
-						"schedlRank","winTop25","lossTop25","winTop50","lossTop50",
-						"predictor","predictorRank","goldenMean","goldenMeanRank",
-						"recent","recentRank" });
+				setNames(new String[]{ "year", "rank", "name", "rating", "win", "loss", "schedl",
+						"schedlRank", "winTop25", "lossTop25", "winTop50", "lossTop50",
+						"predictor", "predictorRank", "goldenMean", "goldenMeanRank",
+						"recent", "recentRank" });
 			}});
 			setFieldSetMapper(new BeanWrapperFieldSetMapper<NcaaStats>() {{
 				setTargetType(NcaaStats.class);
@@ -65,19 +66,35 @@ public class NcaaStatConfiguration {
 	}
 
 
-
 	@Bean
-	public ItemWriter<NcaaStats> writer() {
-		return new ItemWriter<NcaaStats>() {
-			@Override
-			public void write(List<? extends NcaaStats> items) throws Exception {
-				for(NcaaStats item : items) {
-					System.out.println(item);
-				}
-			}
-		};
+	public ItemWriter<NcaaStats> writer(DataSource dataSource) {
+		JdbcBatchItemWriter<NcaaStats> writer = new JdbcBatchItemWriter<NcaaStats>();
+		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<NcaaStats>());
+		writer.setSql("INSERT INTO NCAA_STATS (YEAR," +
+				"RANK, " +
+				"NAME, " +
+				"RATING, " +
+				"WIN, " +
+				"LOSS, " +
+				"SCHEDL, " +
+				"SCHEDL_RANK, " +
+				"WIN_TOP_25, " +
+				"LOSS_TOP_25, " +
+				"WIN_TOP_50, " +
+				"LOSS_TOP_50, " +
+				"PREDICTOR, " +
+				"PREDICTOR_RANK, " +
+				"GOLDEN_MEAN, " +
+				"GOLDEN_MEAN_RANK, " +
+				"RECENT," +
+				"RECENT_RANK) VALUES (:year, :rank, :name, :rating, :win, :loss, " +
+				":schedl, :schedlRank, :winTop25, :lossTop25, :winTop50, :lossTop50, " +
+				":predictor, :predictorRank, :goldenMean, :goldenMeanRank, :recent, " +
+				":recentRank)");
+		writer.setDataSource(dataSource);
+		return writer;
 	}
-	// tag::jobstep[]
+
 	@Bean
 	public Job importUserJob(JobBuilderFactory jobs, Step s1) {
 		return jobs.get("importUserJob")
@@ -91,12 +108,11 @@ public class NcaaStatConfiguration {
 	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<NcaaStats> reader,
 					  ItemWriter<NcaaStats> writer) {
 		return stepBuilderFactory.get("step1")
-				.<NcaaStats, NcaaStats> chunk(10)
+				.<NcaaStats, NcaaStats>chunk(10)
 				.reader(reader)
 				.writer(writer)
 				.build();
 	}
-	// end::jobstep[]
 
 
 }

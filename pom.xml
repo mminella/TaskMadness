@@ -10,7 +10,7 @@
                 <relativePath/> <!-- lookup parent from repository -->
         </parent>
 
-	<groupId>org.springframework.cloud</groupId>
+	<groupId>io.spring.marchmadness</groupId>
         <artifactId>taskmadness</artifactId>
         <version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -54,8 +54,8 @@
 	</prerequisites>
 
         <modules>
-                <module>ncaa-stats-downloader</module>
-				<module>ncaa-stats-loader</module>
+                <module>ncaaStatsDownloader</module>
+				<module>ncaaStatsLoader</module>
         </modules>
 
 	<properties>
