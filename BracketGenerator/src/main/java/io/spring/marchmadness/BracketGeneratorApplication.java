@@ -1,16 +1,16 @@
 package io.spring.marchmadness;
 
-import io.spring.marchmadness.domain.Bracket;
-import io.spring.marchmadness.domain.support.ExponentialDistributionModelTraversalCallback;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.task.configuration.EnableTask;
 
-//@SpringBootApplication
+@SpringBootApplication
+@EnableBatchProcessing
+@EnableTask
 public class BracketGeneratorApplication {
 
 	public static void main(String[] args) {
-		Bracket bracket = new Bracket();
-
-		bracket.simulate(new ExponentialDistributionModelTraversalCallback());
-
-		System.out.println(bracket);
+		SpringApplication.exit(SpringApplication.run(BracketGeneratorApplication.class, args));
 	}
 }
