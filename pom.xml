@@ -55,6 +55,7 @@
 
         <modules>
                 <module>ncaa-stats-downloader</module>
+				<module>ncaa-stats-loader</module>
         </modules>
 
 	<properties>
