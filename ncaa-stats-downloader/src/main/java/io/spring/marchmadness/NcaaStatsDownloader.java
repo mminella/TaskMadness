@@ -27,6 +27,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -56,6 +58,8 @@ public class NcaaStatsDownloader {
 		@Value("${output.filename:output.csv}")
 		private String outputFileName;
 
+		private String statsYear;
+
 		@Override
 		public void run(String... strings) throws Exception {
 			retrieveStats();
@@ -65,19 +69,14 @@ public class NcaaStatsDownloader {
 			RestTemplate restTemplate = new RestTemplate();
 			String s = restTemplate.getForObject(statisticsUrl, String.class);
 			final FileWriter fw = new FileWriter(outputFileName);
+			statsYear = extractYearFromUrl();
+			//Prepare data
+			String[] rawStatistics = s.replace("br", "\n").
+					replaceAll("<font color=\"#.+?>&nbsp", " ").
+					replaceAll("</font>|\\&nbsp|<|>|\\||;|\\(|\\)", "").
+					split("\n");
 
-			s = s.replace("br","\n");
-			//Means that the data came from years 2014 to present and has different format
-			if(s.contains("GOLDEN_MEAN")){
-				s = prepStatsWithGoldenMean(s);
-				writeGoldenMeanHeaders(fw);
-			}
-			else{ //Years 2013 and does not contain GoldenMean
-				s = prepStatsWithNoGoldenMean(s);
-				writeStandardHeaders(fw);
-			}
-
-			String[] rawStatistics = s.split("\n");
+			//create the stream
 			Stream<String> lines = Arrays.asList(rawStatistics).stream();
 
 			//write statistics data
@@ -88,17 +87,6 @@ public class NcaaStatsDownloader {
 
 			fw.close();
 		}
-
-		private String prepStatsWithGoldenMean(String s){
-			s = s.replaceAll("<font color=\"#.+?>&nbsp"," ");
-			return s.replaceAll("</font>|\\&nbsp|<|>|\\||;|\\(|\\)","");
-		}
-
-		private String prepStatsWithNoGoldenMean(String s){
-			s = s.replaceAll(">&nbsp"," ");
-			return s.replaceAll("</font>|\\&nbsp|<|>|\\||COLOR=\\\"#9900ff\\\"|COLOR=\\\"#ff0000\\\"|COLOR=\\\"#0000ff\\\"|font|/|;|\\(|\\)","");
-		}
-
 		private void writeToCsvFile(FileWriter fw, String line) {
 			try {
 				fw.write(String.format("%s%n", makeCommaDelimitedLine(line)));
@@ -108,7 +96,7 @@ public class NcaaStatsDownloader {
 		}
 		private String makeCommaDelimitedLine(String line){
 			String result = "";
-			String[] tokens = line.trim().replaceAll(" +", " ").split(" ");
+			String[] tokens = StringUtils.tokenizeToStringArray(line," ",true,false);
 			boolean isEqualFound = false;
 			int counter = 0;
 			for(String token : tokens){
@@ -116,7 +104,7 @@ public class NcaaStatsDownloader {
 					isEqualFound = true;
 				}
 				else if(!isEqualFound && counter == 0){
-					result = token;
+					result = statsYear + "," + token;
 				}
 				else if(!isEqualFound && counter == 1){
 					result = result + DELIMITER + token;
@@ -131,14 +119,12 @@ public class NcaaStatsDownloader {
 			}
 			return result;
 		}
-
-		private void writeGoldenMeanHeaders(FileWriter fw) throws IOException{
-			fw.write(String.format("%s%n", "rank,name,rating,win,loss,schedltop25,schedltop25rank,top25win,top25loss,top50win,top50loss,predictor,predictor_rank,golden_mean,golden_mean_rank,recent/elo,recent/elo_Rank"));
+		private String extractYearFromUrl(){
+			String[] tokens =
+					StringUtils.tokenizeToStringArray(statisticsUrl,"/",true,false);
+			Assert.isTrue(tokens.length == 7,
+					"url did not tokens did not match expected number.");
+			return tokens[5];
 		}
-		private void writeStandardHeaders(FileWriter fw) throws IOException{
-			fw.write(String.format("%s%n", "rank,name,rating,win,loss,schedltop25,schedltop25rank,top25win,top25loss,top50win,top50loss,elo,elo_Rank,predictor,predictor_rank"));
-		}
-
-
 	}
 }
