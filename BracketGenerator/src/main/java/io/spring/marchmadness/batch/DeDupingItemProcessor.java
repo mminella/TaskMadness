@@ -15,8 +15,8 @@
  */
 package io.spring.marchmadness.batch;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.spring.marchmadness.domain.Bracket;
 
@@ -27,17 +27,17 @@ import org.springframework.batch.item.ItemProcessor;
  */
 public class DeDupingItemProcessor implements ItemProcessor<Bracket, Bracket> {
 
-	private Set<Integer> hashes = new HashSet<>();
+	private Map<Integer, Object> hashes = new ConcurrentHashMap<>();
 
 	@Override
 	public Bracket process(Bracket item) throws Exception {
 		int curHash = item.hashCode();
 
-		if(hashes.contains(curHash)) {
+		if(hashes.get(curHash) != null) {
 			return null;
 		}
 		else {
-			hashes.add(curHash);
+			hashes.put(curHash, new Object());
 			return item;
 		}
 	}

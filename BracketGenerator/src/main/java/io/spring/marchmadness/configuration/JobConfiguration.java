@@ -32,6 +32,7 @@ import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 
 /**
  * @author Michael Minella
@@ -51,7 +52,7 @@ public class JobConfiguration {
 		BracketGeneratingItemReader itemReader = new BracketGeneratingItemReader();
 
 		itemReader.setTraversalCallback(new ExponentialDistributionModelTraversalCallback());
-		itemReader.setMaxItemCount(1000000);
+		itemReader.setMaxItemCount(10000000);
 		itemReader.setName("bracketGeneratingItemReader");
 
 		return itemReader;
@@ -60,12 +61,13 @@ public class JobConfiguration {
 	@Bean
 	public ItemWriter<Bracket> itemWriter() {
 		return new ItemWriter<Bracket>() {
-			private int count = 0;
+			private int brackets = 0;
 
 			@Override
 			public void write(List<? extends Bracket> items) throws Exception {
-				count++;
-				System.out.println("writing chunk " + count);
+				brackets += items.size();
+
+				System.out.println("written " + brackets + " brackets");
 				for (Bracket item : items) {
 //					System.out.println(item);
 				}
@@ -85,6 +87,7 @@ public class JobConfiguration {
 				.reader(itemReader())
 				.processor(itemProcessor())
 				.writer(itemWriter())
+				.taskExecutor(new SimpleAsyncTaskExecutor())
 				.build();
 	}
 
