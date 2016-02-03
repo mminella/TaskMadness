@@ -11,10 +11,9 @@
 	<description>Bracket generator application</description>
 
 	<parent>
-		<groupId>org.springframework.cloud</groupId>
+		<groupId>io.spring.marchmadness</groupId>
 		<artifactId>taskmadness</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -24,7 +23,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
+			<groupId>io.spring.marchmadness</groupId>
 			<artifactId>domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
