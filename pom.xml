@@ -54,14 +54,27 @@
 	</prerequisites>
 
         <modules>
-                <module>ncaaStatsDownloader</module>
-				<module>ncaaStatsLoader</module>
-        </modules>
+			<module>ncaaStatsDownloader</module>
+			<module>ncaaStatsLoader</module>
+			<module>BracketScorer</module>
+			<module>BracketGenerator</module>
+			<module>Domain</module>
+		</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.jacoco.reportPath>${project.build.directory}/coverage-reports/jacoco-ut.exec</sonar.jacoco.reportPath>
 	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-task-core</artifactId>
+				<version>1.0.0.M1</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<build>
 		<plugins>

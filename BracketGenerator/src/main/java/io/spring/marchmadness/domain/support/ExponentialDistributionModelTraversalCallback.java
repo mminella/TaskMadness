@@ -26,7 +26,7 @@ import io.spring.marchmadness.domain.Team;
 import io.spring.marchmadness.domain.TraversalCallback;
 
 /**
- * Source: https://www.youtube.com/watch?v=lo1WYbIvBTA&index=29&list=WL
+ * Source: <a href="https://www.youtube.com/watch?v=lo1WYbIvBTA&index=29&list=WL">https://www.youtube.com/watch?v=lo1WYbIvBTA&amp;index=29&amp;list=WL</a>
  *
  * @author Michael Minella
  */
