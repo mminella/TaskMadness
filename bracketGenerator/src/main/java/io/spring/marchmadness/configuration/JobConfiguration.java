@@ -53,7 +53,7 @@ public class JobConfiguration {
 		BracketGeneratingItemReader itemReader = new BracketGeneratingItemReader();
 
 		itemReader.setTraversalCallback(new ExponentialDistributionModelTraversalCallback());
-		itemReader.setMaxItemCount(1000000);
+		itemReader.setMaxItemCount(100);
 		itemReader.setName("bracketGeneratingItemReader");
 
 		return itemReader;
@@ -85,7 +85,7 @@ public class JobConfiguration {
 	@Bean
 	public Step step1() {
 		return stepBuilderFactory.get("step1")
-				.<Bracket, Bracket>chunk(1000)
+				.<Bracket, Bracket>chunk(100)
 				.reader(itemReader())
 				.processor(itemProcessor())
 				.writer(itemWriter(null))

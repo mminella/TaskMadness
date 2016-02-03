@@ -115,6 +115,8 @@ public class Tree {
 
 	private Node root;
 
+	public Tree() {}
+
 	public Tree(List<Team> teams) {
 		for (Team team : teams) {
 			insert(team);

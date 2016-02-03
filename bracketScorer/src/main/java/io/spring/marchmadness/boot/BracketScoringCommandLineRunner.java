@@ -13,16 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.domain;
+package io.spring.marchmadness.boot;
 
-import java.util.stream.Stream;
+import io.spring.marchmadness.domain.BracketRepository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Michael Minella
  */
-public interface BracketRepository extends MongoRepository<Bracket, String> {
+@Component
+public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
-	Stream<Bracket> findAllBy();
+	@Autowired
+	private BracketRepository bracketRepository;
+
+	@Override
+	public void run(String... strings) throws Exception {
+		bracketRepository.findAllBy()
+		.forEach(System.out::println);
+	}
 }
