@@ -19,6 +19,7 @@ package io.spring.marchmadness;
 import javax.sql.DataSource;
 
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -33,8 +34,10 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ResourceLoader;
 
 /**
@@ -96,9 +99,10 @@ public class NcaaStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1) {
+	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener executionListener) {
 		return jobs.get("importUserJob")
 				.incrementer(new RunIdIncrementer())
+				.listener(executionListener)
 				.flow(s1)
 				.end()
 				.build();
@@ -113,6 +117,5 @@ public class NcaaStatConfiguration {
 				.writer(writer)
 				.build();
 	}
-
 
 }

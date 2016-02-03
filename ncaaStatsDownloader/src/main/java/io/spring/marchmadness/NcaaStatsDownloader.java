@@ -65,27 +65,27 @@ public class NcaaStatsDownloader {
 			retrieveStats();
 		}
 
-		private void retrieveStats() throws IOException{
+		private void retrieveStats() throws IOException {
 			RestTemplate restTemplate = new RestTemplate();
 			String s = restTemplate.getForObject(statisticsUrl, String.class);
-			final FileWriter fw = new FileWriter(outputFileName);
-			statsYear = extractYearFromUrl();
-			//Prepare data
-			String[] rawStatistics = s.replace("br", "\n").
-					replaceAll("<font color=\"#.+?>&nbsp", " ").
-					replaceAll("</font>|\\&nbsp|<|>|\\||;|\\(|\\)", "").
-					split("\n");
+			try (final FileWriter fw = new FileWriter(outputFileName)) {
+				statsYear = extractYearFromUrl();
+				//Prepare data
+				String[] rawStatistics = s.replace("<br>", "\n").
+						replaceAll("<font color=\"#.+?>&nbsp", " ").
+						replaceAll("</font>|\\&nbsp|<|>|\\||;|\\(|\\)", "").
+						split("\n");
 
-			//create the stream
-			Stream<String> lines = Arrays.asList(rawStatistics).stream();
+				//create the stream
+				Stream<String> lines = Arrays.asList(rawStatistics).stream();
 
-			//write statistics data
-			lines.filter(line ->line.startsWith(" ")).
-					filter(line->line.contains(" = ")).
-					filter(line->!line.startsWith("    ")).
-					forEach(line->writeToCsvFile(fw, line));
+				//write statistics data
+				lines.filter(line -> line.startsWith(" ")).
+						filter(line -> line.contains(" = ") || line.contains("ETS= ")).
+						filter(line -> !line.startsWith("    ")).
+						forEach(line -> writeToCsvFile(fw, line));
 
-			fw.close();
+			}
 		}
 		private void writeToCsvFile(FileWriter fw, String line) {
 			try {
@@ -100,7 +100,7 @@ public class NcaaStatsDownloader {
 			boolean isEqualFound = false;
 			int counter = 0;
 			for(String token : tokens){
-				if(token.equals("=")){
+				if(token.equals("=")||token.equals("StateETS=")){
 					isEqualFound = true;
 				}
 				else if(!isEqualFound && counter == 0){
