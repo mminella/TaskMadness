@@ -56,7 +56,9 @@
         <modules>
 			<module>domain</module>
 			<module>ncaaStatsDownloader</module>
+			<module>mooreStatsDownloader</module>
 			<module>ncaaStatsLoader</module>
+			<module>mooreStatsLoader</module>
 			<module>bracketScorer</module>
 			<module>bracketGenerator</module>
 		</modules>
