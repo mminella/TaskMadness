@@ -1,0 +1,56 @@
+== Task Madness
+
+Task Madness is a demo project that is comprised of a series of tasks built using
+http://projects.spring.io/spring-boot/[Spring Boot] and
+http://cloud.spring.io/spring-cloud-task/[Spring Cloud Task] that gather NCAA stat data
+and attempts to predict the outcome of the March Madness Tournament.
+
+=== Building
+
+Build:
+```
+mvn clean package
+```
+
+=== Running the Tasks
+
+*Note:* For this project we use MySql as the repository to store the status of the Task Executions
+as well as the location where stats and predictions are stored.  Also MongoDB is used to
+store the generated brackets.
+
+. Set up the environment for the datasource
++
+```
+export spring_datasource_url=jdbc:mysql://localhost:3306/[yourdb]
+export spring_datasource_username=root
+export spring_datasource_password=password
+export spring_datasource_driverClassName=com.mysql.jdbc.Driver
+```
++
+. Gather the NCAA Stats
++
+```
+java -jar ncaaStatsDownloader/target/ncaaStatsDownloader-0.0.1-SNAPSHOT.jar
+java -jar mooreStatsDownloader/target/mooreStatsDownloader-0.0.1-SNAPSHOT.jar
+```
++
+. Upload Stats to the repository
++
+```
+java -jar ncaaStatsLoader/target/ncaaStatsLoader-0.0.1-SNAPSHOT.jar
+java -jar mooreStatsLoader/target/mooreStatsLoader-0.0.1-SNAPSHOT.jar
+```
++
+. Create the brackets:
++
+```
+java -jar bracketGenerator/target/bracket-generator-0.0.1-SNAPSHOT.jar
+```
++
+. Score the brackets
++
+```
+java -jar java -jar bracketScorer/target/bracket-scorer-0.0.1-SNAPSHOT.jar
+```
+
+=== Running the UI
