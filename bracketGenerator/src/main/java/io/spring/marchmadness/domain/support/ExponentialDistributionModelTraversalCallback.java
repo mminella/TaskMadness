@@ -94,7 +94,7 @@ public class ExponentialDistributionModelTraversalCallback implements TraversalC
 
 			int index = randomGenerator.nextInt(10000);
 
-			if(outcomes.get(node.getLevel() - 2)[index]) {
+			if(outcomes.get(node.getLevel() - 1)[index]) {
 				node.setTeam(highSeed);
 			}
 			else {

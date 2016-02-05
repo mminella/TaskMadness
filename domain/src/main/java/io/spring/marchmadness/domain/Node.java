@@ -22,7 +22,7 @@ package io.spring.marchmadness.domain;
  */
 public class Node {
 
-	private Node left, right;
+	private Node[] children;
 
 	private Team team;
 
@@ -34,19 +34,26 @@ public class Node {
 	}
 
 	public Node getLeft() {
-		return this.left;
+		return this.children == null? null : this.children[0];
 	}
 
 	public Node getRight() {
-		return this.right;
+		return this.children == null? null : this.children[1];
 	}
 
 	void setLeft(Node left) {
-		this.left = left;
+		if(this.children == null) {
+			this.children = new Node[2];
+		}
+
+		this.children[0] = left;
 	}
 
 	void setRight(Node right) {
-		this.right = right;
+		if(this.children == null) {
+			this.children = new Node[2];
+		}
+		this.children[1] = right;
 	}
 
 	public void setTeam(Team team) {

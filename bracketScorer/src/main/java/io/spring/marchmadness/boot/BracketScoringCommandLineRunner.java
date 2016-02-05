@@ -32,7 +32,7 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		bracketRepository.findAllBy()
-		.forEach(System.out::println);
+		System.out.println(bracketRepository.findViableBrackets()
+		.count());
 	}
 }

@@ -27,39 +27,23 @@ public class Bracket {
 	@Id
 	private String id;
 
-	private Tree left;
-	private Tree right;
-	private Node champion;
+	private Tree bracket;
 
 	public Bracket() {
-		this.left = new Tree(Tree.SOUTH_WEST_TEAM_INITIALIZER);
-		this.right = new Tree(Tree.EAST_MIDWEST_TEAM_INITIALIZER);
+		this.bracket = new Tree(Tree.BRACKET_INITIALIZER);
 	}
 
 	public void simulate(TraversalCallback traversalCallback) {
-		this.left.reverseLevelOrder(traversalCallback);
-		this.right.reverseLevelOrder(traversalCallback);
+		this.bracket.reverseLevelOrder(traversalCallback);
+	}
 
-		this.champion = new Node(null, 7);
-		this.champion.setLeft(this.left.getRoot());
-		this.champion.setRight(this.right.getRoot());
-
-		traversalCallback.execute(this.champion);
-
-		// Remove links to right/left so that they are not stored in duplicate in mongo
-		this.champion.setLeft(null);
-		this.champion.setRight(null);
+	public String getId() {
+		return this.id;
 	}
 
 	@Override
 	public String toString() {
-		StringBuilder string = new StringBuilder();
-
-		string.append(left.toString());
-		string.append(this.champion.getTeam());
-		string.append(right.toString());
-
-		return string.toString();
+		return bracket.toString();
 	}
 
 	@Override

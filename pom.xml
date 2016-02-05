@@ -61,6 +61,7 @@
 			<module>mooreStatsLoader</module>
 			<module>bracketScorer</module>
 			<module>bracketGenerator</module>
+			<module>ncaaUI</module>
 		</modules>
 
 	<properties>

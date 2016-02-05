@@ -18,11 +18,18 @@ package io.spring.marchmadness.domain;
 import java.util.stream.Stream;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 /**
  * @author Michael Minella
  */
 public interface BracketRepository extends MongoRepository<Bracket, String> {
 
-	Stream<Bracket> findAllBy();
+	@Query("{$and: [{'bracket.root.children.0.children.0.children.0.children.0.children.0.team.seed': 1},\n" +
+			"\t\t{'bracket.root.children.0.children.1.children.0.children.0.children.0.team.seed': 1},\n" +
+			"\t\t{'bracket.root.children.1.children.0.children.0.children.0.children.0.team.seed': 1},\n" +
+			"\t\t{'bracket.root.children.1.children.1.children.0.children.0.children.0.team.seed': 1},\n" +
+			"\t\t{'bracket.root.children.0.team.seed': {$ne:4}},\n" +
+			"\t\t{'bracket.root.children.1.team.seed': {$ne:4}}]}")
+	Stream<Bracket> findViableBrackets();
 }

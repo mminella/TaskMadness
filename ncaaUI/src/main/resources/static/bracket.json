@@ -1,0 +1,1021 @@
+{
+    "_id": ObjectID("56b3d8218d6af1e441afc4d4"),
+    "_class": "io.spring.marchmadness.domain.Bracket",
+    "bracket": {
+        "root": {
+            "children": [
+                {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 1,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 16,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 1,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 8,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 9,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 9,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 1,
+                                                "region": "EAST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 5,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 12,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 5,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 4,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 13,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 4,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 4,
+                                                "region": "EAST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 1,
+                                        "region": "EAST"
+                                    },
+                                    "level": 3
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 6,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 11,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 11,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 3,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 14,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 3,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 3,
+                                                "region": "EAST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 7,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 10,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 7,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 2,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 15,
+                                                                "region": "EAST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 2,
+                                                        "region": "EAST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 2,
+                                                "region": "EAST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 2,
+                                        "region": "EAST"
+                                    },
+                                    "level": 3
+                                }
+                            ],
+                            "team": {
+                                "seed": 1,
+                                "region": "EAST"
+                            },
+                            "level": 4
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 1,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 16,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 1,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 8,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 9,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 9,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 1,
+                                                "region": "MIDWEST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 5,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 12,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 5,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 4,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 13,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 4,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 5,
+                                                "region": "MIDWEST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 1,
+                                        "region": "MIDWEST"
+                                    },
+                                    "level": 3
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 6,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 11,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 6,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 3,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 14,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 3,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 3,
+                                                "region": "MIDWEST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 7,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 10,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 10,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 2,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 15,
+                                                                "region": "MIDWEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 2,
+                                                        "region": "MIDWEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 10,
+                                                "region": "MIDWEST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 3,
+                                        "region": "MIDWEST"
+                                    },
+                                    "level": 3
+                                }
+                            ],
+                            "team": {
+                                "seed": 1,
+                                "region": "MIDWEST"
+                            },
+                            "level": 4
+                        }
+                    ],
+                    "team": {
+                        "seed": 1,
+                        "region": "MIDWEST"
+                    },
+                    "level": 5
+                },
+                {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 1,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 16,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 1,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 8,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 9,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 9,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 1,
+                                                "region": "SOUTH"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 5,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 12,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 12,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 4,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 13,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 4,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 4,
+                                                "region": "SOUTH"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 1,
+                                        "region": "SOUTH"
+                                    },
+                                    "level": 3
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 6,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 11,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 11,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 3,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 14,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 3,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 3,
+                                                "region": "SOUTH"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 7,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 10,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 10,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 2,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 15,
+                                                                "region": "SOUTH"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 2,
+                                                        "region": "SOUTH"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 2,
+                                                "region": "SOUTH"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 2,
+                                        "region": "SOUTH"
+                                    },
+                                    "level": 3
+                                }
+                            ],
+                            "team": {
+                                "seed": 2,
+                                "region": "SOUTH"
+                            },
+                            "level": 4
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 1,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 16,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 1,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 8,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 9,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 9,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 1,
+                                                "region": "WEST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 5,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 12,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 5,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 4,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 13,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 4,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 4,
+                                                "region": "WEST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 1,
+                                        "region": "WEST"
+                                    },
+                                    "level": 3
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 6,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 11,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 6,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 3,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 14,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 3,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 3,
+                                                "region": "WEST"
+                                            },
+                                            "level": 2
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 7,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 10,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 7,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "team": {
+                                                                "seed": 2,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        },
+                                                        {
+                                                            "team": {
+                                                                "seed": 15,
+                                                                "region": "WEST"
+                                                            },
+                                                            "level": 0
+                                                        }
+                                                    ],
+                                                    "team": {
+                                                        "seed": 2,
+                                                        "region": "WEST"
+                                                    },
+                                                    "level": 1
+                                                }
+                                            ],
+                                            "team": {
+                                                "seed": 2,
+                                                "region": "WEST"
+                                            },
+                                            "level": 2
+                                        }
+                                    ],
+                                    "team": {
+                                        "seed": 2,
+                                        "region": "WEST"
+                                    },
+                                    "level": 3
+                                }
+                            ],
+                            "team": {
+                                "seed": 1,
+                                "region": "WEST"
+                            },
+                            "level": 4
+                        }
+                    ],
+                    "team": {
+                        "seed": 1,
+                        "region": "WEST"
+                    },
+                    "level": 5
+                }
+            ],
+            "team": {
+                "seed": 1,
+                "region": "MIDWEST"
+            },
+            "level": 6
+        }
+    }
+}
