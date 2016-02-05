@@ -15,6 +15,8 @@
  */
 package io.spring.marchmadness.boot;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import io.spring.marchmadness.domain.BracketRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +34,9 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		System.out.println(bracketRepository.findViableBrackets()
-		.count());
+		final AtomicInteger counter = new AtomicInteger(0);
+		bracketRepository.findViableBrackets().forEach(bracket -> {
+			System.out.println(bracket.getId() + " " + counter.incrementAndGet());
+		});
 	}
 }

@@ -25,11 +25,40 @@ import org.springframework.data.mongodb.repository.Query;
  */
 public interface BracketRepository extends MongoRepository<Bracket, String> {
 
-	@Query("{$and: [{'bracket.root.children.0.children.0.children.0.children.0.children.0.team.seed': 1},\n" +
-			"\t\t{'bracket.root.children.0.children.1.children.0.children.0.children.0.team.seed': 1},\n" +
-			"\t\t{'bracket.root.children.1.children.0.children.0.children.0.children.0.team.seed': 1},\n" +
-			"\t\t{'bracket.root.children.1.children.1.children.0.children.0.children.0.team.seed': 1},\n" +
-			"\t\t{'bracket.root.children.0.team.seed': {$ne:4}},\n" +
-			"\t\t{'bracket.root.children.1.team.seed': {$ne:4}}]}")
+	@Query("{$and: [{'bracket.root.children.0.children.0.children.0.children.0.children.0.team.seed': 1}," +
+					"{'bracket.root.children.0.children.1.children.0.children.0.children.0.team.seed': 1}," +
+					"{'bracket.root.children.1.children.0.children.0.children.0.children.0.team.seed': 1}," +
+					"{'bracket.root.children.1.children.1.children.0.children.0.children.0.team.seed': 1}," +
+					"{'bracket.root.children.0.team.seed': {$ne:4}}," +
+					"{'bracket.root.children.1.team.seed': {$ne:4}}," +
+					"{$or: [{'bracket.root.children.0.children.0.team.seed': 1}," +
+					"               {'bracket.root.children.0.children.1.team.seed': 1}," +
+					"               {'bracket.root.children.1.children.0.team.seed': 1}," +
+					"               {'bracket.root.children.1.children.1.team.seed': 1}" +
+					"      ]}," +
+					"{$or: [{'bracket.root.children.0.children.0.children.0.children.0.children.1.team.seed': 9}," +
+					"               {'bracket.root.children.0.children.1.children.0.children.0.children.1.team.seed': 9}," +
+					"               {'bracket.root.children.1.children.0.children.0.children.0.children.1.team.seed': 9}," +
+					"               {'bracket.root.children.1.children.1.children.0.children.0.children.1.team.seed': 9}" +
+					"      ]}," +
+					"{$or: [{'bracket.root.children.0.children.0.children.0.children.1.children.0.team.seed': 12}," +
+					"   {'bracket.root.children.0.children.1.children.0.children.1.children.0.team.seed': 12}," +
+					"   {'bracket.root.children.1.children.0.children.0.children.1.children.0.team.seed': 12}," +
+					"   {'bracket.root.children.1.children.1.children.0.children.1.children.0.team.seed': 12}" +
+					"      ]}," +
+					"{$or: [{'bracket.root.children.0.children.0.children.0.children.1.children.1.team.seed': 13}," +
+					"   {'bracket.root.children.0.children.0.children.1.children.0.children.1.team.seed': 14}," +
+					"   {'bracket.root.children.0.children.0.children.1.children.1.children.1.team.seed': 15}," +
+					"   {'bracket.root.children.0.children.1.children.0.children.1.children.1.team.seed': 13}," +
+					"   {'bracket.root.children.0.children.1.children.1.children.0.children.1.team.seed': 14}," +
+					"   {'bracket.root.children.0.children.1.children.1.children.1.children.1.team.seed': 15}," +
+					"   {'bracket.root.children.1.children.0.children.0.children.1.children.1.team.seed': 13}," +
+					"   {'bracket.root.children.1.children.0.children.1.children.0.children.1.team.seed': 14}," +
+					"   {'bracket.root.children.1.children.0.children.1.children.1.children.1.team.seed': 15}," +
+					"   {'bracket.root.children.1.children.1.children.0.children.1.children.1.team.seed': 13}," +
+					"   {'bracket.root.children.1.children.1.children.1.children.0.children.1.team.seed': 14}," +
+					"   {'bracket.root.children.1.children.1.children.1.children.1.children.1.team.seed': 15}" +
+					"      ]}" +
+					"]}")
 	Stream<Bracket> findViableBrackets();
 }
