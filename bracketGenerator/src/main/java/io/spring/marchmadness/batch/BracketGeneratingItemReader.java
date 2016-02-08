@@ -32,7 +32,7 @@ public class BracketGeneratingItemReader extends AbstractItemCountingItemStreamI
 	protected Bracket doRead() throws Exception {
 		Bracket bracket = new Bracket();
 
-		bracket.simulate(this.traversalCallback);
+		bracket.traverse(this.traversalCallback);
 
 		return bracket;
 	}

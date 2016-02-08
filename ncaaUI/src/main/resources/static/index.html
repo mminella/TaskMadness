@@ -1104,7 +1104,7 @@
                 .attr("text-anchor", function(d) {
                     curChildren = [d.left, d.right];
                     return curChildren ? "end" : "start"; })
-                .text(function(d) { return d.team.region + ":" + d.team.seed; })
+                .text(function(d) { return d.team.region + ":" + d.team.seed + ":" + d.level; })
                 .style("fill-opacity", 1);
 
         // Declare the links¦

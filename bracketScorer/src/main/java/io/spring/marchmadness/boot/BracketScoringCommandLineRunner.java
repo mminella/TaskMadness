@@ -18,6 +18,8 @@ package io.spring.marchmadness.boot;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import io.spring.marchmadness.domain.BracketRepository;
+import io.spring.marchmadness.filters.EliteEightFilterTraversalCallback;
+import io.spring.marchmadness.filters.FinalFourFilterTraversalCallback;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -35,8 +37,20 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 	@Override
 	public void run(String... strings) throws Exception {
 		final AtomicInteger counter = new AtomicInteger(0);
-		bracketRepository.findViableBrackets().forEach(bracket -> {
-			System.out.println(bracket.getId() + " " + counter.incrementAndGet());
+
+		bracketRepository.findViableBrackets()
+				.filter(bracket1 -> {
+					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
+					bracket1.traverse(callback);
+					return callback.isValid();
+				})
+				.filter(bracket2 -> {
+					EliteEightFilterTraversalCallback callback = new EliteEightFilterTraversalCallback();
+					bracket2.traverse(callback);
+					return callback.isValid();
+				})
+				.forEach(bracket -> {
+					System.out.println(bracket.getId() + " " + counter.incrementAndGet());
 		});
 	}
 }

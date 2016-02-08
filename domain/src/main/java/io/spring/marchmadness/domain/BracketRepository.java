@@ -29,8 +29,6 @@ public interface BracketRepository extends MongoRepository<Bracket, String> {
 					"{'bracket.root.children.0.children.1.children.0.children.0.children.0.team.seed': 1}," +
 					"{'bracket.root.children.1.children.0.children.0.children.0.children.0.team.seed': 1}," +
 					"{'bracket.root.children.1.children.1.children.0.children.0.children.0.team.seed': 1}," +
-					"{'bracket.root.children.0.team.seed': {$ne:4}}," +
-					"{'bracket.root.children.1.team.seed': {$ne:4}}," +
 					"{$or: [{'bracket.root.children.0.children.0.team.seed': 1}," +
 					"               {'bracket.root.children.0.children.1.team.seed': 1}," +
 					"               {'bracket.root.children.1.children.0.team.seed': 1}," +
@@ -58,7 +56,16 @@ public interface BracketRepository extends MongoRepository<Bracket, String> {
 					"   {'bracket.root.children.1.children.1.children.0.children.1.children.1.team.seed': 13}," +
 					"   {'bracket.root.children.1.children.1.children.1.children.0.children.1.team.seed': 14}," +
 					"   {'bracket.root.children.1.children.1.children.1.children.1.children.1.team.seed': 15}" +
-					"      ]}" +
+					"      ]}," +
+					"{$and: [{'bracket.root.children.0.children.0.children.0.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.0.children.0.children.1.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.0.children.1.children.0.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.0.children.1.children.1.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.1.children.0.children.0.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.1.children.0.children.1.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.1.children.1.children.0.team.seed': {$ne : 7}}," +
+					"   {'bracket.root.children.1.children.1.children.1.team.seed': {$ne : 7}}" +
+					"   ]}" +
 					"]}")
 	Stream<Bracket> findViableBrackets();
 }

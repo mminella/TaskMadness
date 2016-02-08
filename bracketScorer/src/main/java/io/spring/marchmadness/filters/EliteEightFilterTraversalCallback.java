@@ -13,41 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.domain;
+package io.spring.marchmadness.filters;
 
-import org.springframework.data.annotation.Id;
+import io.spring.marchmadness.domain.Node;
+import io.spring.marchmadness.domain.TraversalCallback;
 
 /**
- * Source: http://www.geeksforgeeks.org/reverse-level-order-traversal/
- *
  * @author Michael Minella
  */
-public class Bracket {
+public class EliteEightFilterTraversalCallback implements TraversalCallback {
 
-	@Id
-	private String id;
-
-	private Tree bracket;
-
-	public Bracket() {
-		this.bracket = new Tree(Tree.BRACKET_INITIALIZER);
-	}
-
-	public void traverse(TraversalCallback traversalCallback) {
-		this.bracket.reverseLevelOrder(traversalCallback);
-	}
-
-	public String getId() {
-		return this.id;
-	}
+	private boolean valid = false;
+	private int goodLowerSeeds = 0;
 
 	@Override
-	public String toString() {
-		return bracket.toString();
+	public void execute(Node node) {
+		if(node.getLevel() == 3) {
+			int seed = node.getTeam().getSeed();
+
+			if((seed > 2 && seed <= 7) || seed == 10) {
+				goodLowerSeeds++;
+				valid = true;
+			}
+		}
 	}
 
-	@Override
-	public int hashCode() {
-		return this.toString().hashCode();
+	public boolean isValid() {
+		return this.valid;
 	}
 }
