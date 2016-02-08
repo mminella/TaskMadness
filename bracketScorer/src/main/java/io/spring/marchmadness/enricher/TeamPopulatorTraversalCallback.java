@@ -13,32 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.filters;
+package io.spring.marchmadness.enricher;
 
 import io.spring.marchmadness.domain.Node;
+import io.spring.marchmadness.domain.Team;
 import io.spring.marchmadness.domain.TraversalCallback;
+
+import org.springframework.core.env.Environment;
 
 /**
  * @author Michael Minella
  */
-public class EliteEightFilterTraversalCallback implements TraversalCallback {
+public class TeamPopulatorTraversalCallback implements TraversalCallback {
 
-	private boolean valid = false;
-	private int goodLowerSeeds = 0;
+	private Environment env;
+
+	public TeamPopulatorTraversalCallback(Environment env) {
+		this.env = env;
+	}
 
 	@Override
 	public void execute(Node node) {
-		if(node.getLevel() == 3) {
-			int seed = node.getTeam().getSeed();
-
-			if((seed > 2 && seed <= 7) || seed == 10) {
-				goodLowerSeeds++;
-				valid = true;
-			}
-		}
-	}
-
-	public boolean isValid() {
-		return this.valid;
+		Team team = node.getTeam();
+		team.setTeamName(env.getProperty(team.getRegion() + "." + team.getSeed()));
 	}
 }

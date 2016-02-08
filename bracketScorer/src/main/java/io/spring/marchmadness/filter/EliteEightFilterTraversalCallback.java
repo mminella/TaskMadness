@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.filters;
+package io.spring.marchmadness.filter;
 
 import io.spring.marchmadness.domain.Node;
 import io.spring.marchmadness.domain.TraversalCallback;
@@ -21,21 +21,19 @@ import io.spring.marchmadness.domain.TraversalCallback;
 /**
  * @author Michael Minella
  */
-public class FinalFourFilterTraversalCallback implements TraversalCallback {
+public class EliteEightFilterTraversalCallback implements TraversalCallback {
 
-	private boolean valid = true;
-	private int numberOneSeeds = 0;
+	private boolean valid = false;
+	private int goodLowerSeeds = 0;
 
-	//TODO: Add filter for #1 overall seed
 	@Override
 	public void execute(Node node) {
-		if(node.getLevel() == 4) {
-			if(node.getTeam().getSeed() == 1) {
-				numberOneSeeds++;
+		if(node.getLevel() == 3) {
+			int seed = node.getTeam().getSeed();
 
-				if(numberOneSeeds > 2) {
-					valid = false;
-				}
+			if((seed > 2 && seed <= 7) || seed == 10) {
+				goodLowerSeeds++;
+				valid = true;
 			}
 		}
 	}

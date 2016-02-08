@@ -29,6 +29,8 @@ public class Bracket {
 
 	private Tree bracket;
 
+	private long score = 0;
+
 	public Bracket() {
 		this.bracket = new Tree(Tree.BRACKET_INITIALIZER);
 	}
@@ -39,6 +41,18 @@ public class Bracket {
 
 	public String getId() {
 		return this.id;
+	}
+
+	public Team getWinner() {
+		return this.bracket.getRoot().getTeam();
+	}
+
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long score) {
+		this.score = score;
 	}
 
 	@Override

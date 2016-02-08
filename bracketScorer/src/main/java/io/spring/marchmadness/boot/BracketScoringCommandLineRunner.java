@@ -17,12 +17,19 @@ package io.spring.marchmadness.boot;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.sql.DataSource;
+
+import io.spring.marchmadness.domain.Bracket;
 import io.spring.marchmadness.domain.BracketRepository;
-import io.spring.marchmadness.filters.EliteEightFilterTraversalCallback;
-import io.spring.marchmadness.filters.FinalFourFilterTraversalCallback;
+import io.spring.marchmadness.enricher.BracketScoringTraversalCallback;
+import io.spring.marchmadness.enricher.BracketScoringTraversalCallbackFactory;
+import io.spring.marchmadness.enricher.TeamPopulatorTraversalCallback;
+import io.spring.marchmadness.filter.EliteEightFilterTraversalCallback;
+import io.spring.marchmadness.filter.FinalFourFilterTraversalCallback;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -34,11 +41,22 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 	@Autowired
 	private BracketRepository bracketRepository;
 
+	@Autowired
+	private Environment env;
+
+	@Autowired
+	private DataSource dataSource;
+
 	@Override
 	public void run(String... strings) throws Exception {
 		final AtomicInteger counter = new AtomicInteger(0);
 
-		bracketRepository.findViableBrackets()
+		BracketScoringTraversalCallbackFactory bracketScoringTraversalCallbackFactoryBean =
+				new BracketScoringTraversalCallbackFactory();
+
+		bracketScoringTraversalCallbackFactoryBean.setDataSource(dataSource);
+
+		Bracket result = bracketRepository.findViableBrackets()
 				.filter(bracket1 -> {
 					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
 					bracket1.traverse(callback);
@@ -49,8 +67,37 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 					bracket2.traverse(callback);
 					return callback.isValid();
 				})
-				.forEach(bracket -> {
-					System.out.println(bracket.getId() + " " + counter.incrementAndGet());
-		});
+				.map(bracket3 -> {
+					TeamPopulatorTraversalCallback callback = new TeamPopulatorTraversalCallback(env);
+					bracket3.traverse(callback);
+					return bracket3;
+				})
+				.map(bracket4 -> {
+					BracketScoringTraversalCallback callback = bracketScoringTraversalCallbackFactoryBean.getObject();
+					bracket4.traverse(callback);
+					bracket4.setScore(callback.getBracketScore());
+					return bracket4;
+				})
+				.max((b1, b2) ->
+					Long.compare(b1.getScore(), b2.getScore())
+				)
+				.get();
+
+		System.out.println("************** RESULT ****************");
+		System.out.println("Winner: " + result.getWinner().getTeamName());
+		System.out.println("Score: " + result.getScore());
+		System.out.println("Bracket Id: " + result.getId());
+
+//				.collect(groupingBy(bracket4 ->
+//					bracket4.getWinner().getTeamName(), counting()
+//				));
+//				.forEach(bracket -> {
+//					System.out.println("Winner: " + bracket.getWinner().getTeamName() + " " + counter.incrementAndGet());
+//		});
+//
+//		System.out.println("***************** RESULTS *********************");
+//		for (Map.Entry<String, Long> winner : results.entrySet()) {
+//			System.out.println(winner.getKey() + " won " + winner.getValue() + " times.");
+//		}
 	}
 }

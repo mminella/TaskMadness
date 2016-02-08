@@ -13,40 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.domain;
+package io.spring.marchmadness.filter;
+
+import io.spring.marchmadness.domain.Node;
+import io.spring.marchmadness.domain.TraversalCallback;
 
 /**
  * @author Michael Minella
  */
-public class Team {
+public class FinalFourFilterTraversalCallback implements TraversalCallback {
 
-	private int seed;
-	private Region region;
-	private String teamName;
+	private boolean valid = true;
+	private int numberOneSeeds = 0;
 
-	public Team(int seed, Region region) {
-		this.seed = seed;
-		this.region = region;
-	}
-
-	public int getSeed() {
-		return seed;
-	}
-
-	public Region getRegion() {
-		return region;
-	}
-
-	public String getTeamName() {
-		return teamName;
-	}
-
-	public void setTeamName(String teamName) {
-		this.teamName = teamName;
-	}
-
+	//TODO: Add filter for #1 overall seed
 	@Override
-	public String toString() {
-		return this.region.getValue() + ":" + seed;
+	public void execute(Node node) {
+		if(node.getLevel() == 4) {
+			if(node.getTeam().getSeed() == 1) {
+				numberOneSeeds++;
+
+				if(numberOneSeeds > 2) {
+					valid = false;
+				}
+			}
+		}
+	}
+
+	public boolean isValid() {
+		return this.valid;
 	}
 }

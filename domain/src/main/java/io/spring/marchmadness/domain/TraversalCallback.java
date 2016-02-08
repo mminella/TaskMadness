@@ -21,4 +21,8 @@ package io.spring.marchmadness.domain;
 public interface TraversalCallback {
 
 	void execute(Node node);
+
+	default boolean isLeafNode(Node node) {
+		return node.getLeft() != null || node.getRight() != null;
+	}
 }
