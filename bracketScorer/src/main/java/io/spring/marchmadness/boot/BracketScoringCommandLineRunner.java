@@ -15,7 +15,8 @@
  */
 package io.spring.marchmadness.boot;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -38,6 +39,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
+	public static final String MIN_BRACKET = "minBracket";
+
+	public static final String MAX_BRACKET = "maxBracket";
+
 	@Autowired
 	private BracketRepository bracketRepository;
 
@@ -49,44 +54,61 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
 	@Override
 	public void run(String... strings) throws Exception {
-		final AtomicInteger counter = new AtomicInteger(0);
 
 		BracketScoringTraversalCallbackFactory bracketScoringTraversalCallbackFactoryBean =
 				new BracketScoringTraversalCallbackFactory();
 
 		bracketScoringTraversalCallbackFactoryBean.setDataSource(dataSource);
 
-		Bracket result = bracketRepository.findViableBrackets()
-				.filter(bracket1 -> {
+		Map<String, Bracket> results = new HashMap<>(2);
+
+		bracketRepository.findViableBrackets()
+				.filter(bracket -> {
 					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
-					bracket1.traverse(callback);
+					bracket.traverse(callback);
 					return callback.isValid();
 				})
-				.filter(bracket2 -> {
+				.filter(bracket -> {
 					EliteEightFilterTraversalCallback callback = new EliteEightFilterTraversalCallback();
-					bracket2.traverse(callback);
+					bracket.traverse(callback);
 					return callback.isValid();
 				})
-				.map(bracket3 -> {
+				.map(bracket -> {
 					TeamPopulatorTraversalCallback callback = new TeamPopulatorTraversalCallback(env);
-					bracket3.traverse(callback);
-					return bracket3;
+					bracket.traverse(callback);
+					return bracket;
 				})
-				.map(bracket4 -> {
+				.map(bracket -> {
 					BracketScoringTraversalCallback callback = bracketScoringTraversalCallbackFactoryBean.getObject();
-					bracket4.traverse(callback);
-					bracket4.setScore(callback.getBracketScore());
-					return bracket4;
+					bracket.traverse(callback);
+					bracket.setScore(callback.getBracketScore());
+					return bracket;
 				})
-				.max((b1, b2) ->
-					Long.compare(b1.getScore(), b2.getScore())
-				)
-				.get();
+				.forEach(bracket -> {
+					if(!results.containsKey(MIN_BRACKET)) {
+						results.put(MIN_BRACKET, bracket);
+						results.put(MAX_BRACKET, bracket);
+					}
+					else {
+						Bracket minBracket = results.get(MIN_BRACKET);
+						Bracket maxBracket = results.get(MAX_BRACKET);
+
+						if(minBracket.getScore() > bracket.getScore()) {
+							results.put(MIN_BRACKET, bracket);
+						}
+
+						if(maxBracket.getScore() < bracket.getScore()) {
+							results.put(MAX_BRACKET, bracket);
+						}
+					}
+				});
+
+		Bracket maxBracket = results.get(MAX_BRACKET);
 
 		System.out.println("************** RESULT ****************");
-		System.out.println("Winner: " + result.getWinner().getTeamName());
-		System.out.println("Score: " + result.getScore());
-		System.out.println("Bracket Id: " + result.getId());
+		System.out.println("Winner: " + maxBracket.getWinner().getTeamName());
+		System.out.println("Score: " + maxBracket.getScore());
+		System.out.println("Bracket Id: " + maxBracket.getId());
 
 //				.collect(groupingBy(bracket4 ->
 //					bracket4.getWinner().getTeamName(), counting()
