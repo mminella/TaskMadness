@@ -25,6 +25,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
@@ -34,10 +35,8 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.ResourceLoader;
 
 /**
@@ -68,6 +67,10 @@ public class NcaaStatConfiguration {
 		return reader;
 	}
 
+	@Bean
+	public ItemProcessor<NcaaStats, NcaaStats> processor() {
+		return new NcaaItemProcessor();
+	}
 
 	@Bean
 	public ItemWriter<NcaaStats> writer(DataSource dataSource) {
@@ -109,11 +112,14 @@ public class NcaaStatConfiguration {
 	}
 
 	@Bean
-	public Step step1(StepBuilderFactory stepBuilderFactory, ItemReader<NcaaStats> reader,
-					  ItemWriter<NcaaStats> writer) {
+	public Step step1(StepBuilderFactory stepBuilderFactory,
+					  ItemReader<NcaaStats> reader,
+					  ItemWriter<NcaaStats> writer,
+					  ItemProcessor<NcaaStats,NcaaStats> processor) {
 		return stepBuilderFactory.get("step1")
 				.<NcaaStats, NcaaStats>chunk(10)
 				.reader(reader)
+				.processor(processor)
 				.writer(writer)
 				.build();
 	}

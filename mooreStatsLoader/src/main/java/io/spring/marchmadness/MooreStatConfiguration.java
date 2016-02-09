@@ -54,7 +54,7 @@ public class MooreStatConfiguration {
 		reader.setResource(resourceLoader.getResource("file:" + inputFileName));
 		reader.setLineMapper(new DefaultLineMapper<MooreNcaaStat>() {{
 			setLineTokenizer(new DelimitedLineTokenizer() {{
-				setNames(new String[]{ "rank", "name", "win", "loss", "tie",
+				setNames(new String[]{"year", "rank", "name", "win", "loss", "tie",
 						"sos", "pr" });
 			}});
 			setFieldSetMapper(new BeanWrapperFieldSetMapper<MooreNcaaStat>() {{
@@ -69,13 +69,13 @@ public class MooreStatConfiguration {
 	public ItemWriter<MooreNcaaStat> writer(DataSource dataSource) {
 		JdbcBatchItemWriter<MooreNcaaStat> writer = new JdbcBatchItemWriter<MooreNcaaStat>();
 		writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<MooreNcaaStat>());
-		writer.setSql("INSERT INTO MOORE_NCAA_STATS (RANK, " +
+		writer.setSql("INSERT INTO MOORE_NCAA_STATS (YEAR, RANK, " +
 				"NAME, " +
 				"WIN, " +
 				"LOSS, " +
 				"TIE, " +
 				"SOS, " +
-				"PR ) VALUES (:rank, :name, :win, :loss, :tie, :sos, :pr)");
+				"PR ) VALUES (:year, :rank, :name, :win, :loss, :tie, :sos, :pr)");
 		writer.setDataSource(dataSource);
 		return writer;
 	}

@@ -16,6 +16,7 @@
 
 package io.spring.marchmadness;
 
+import java.io.FileReader;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -42,7 +43,20 @@ public class BeforeMooreJobNotification extends JobExecutionListenerSupport {
 	@Override
 	public void beforeJob(JobExecution jobExecution) {
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
-		template.execute("delete from MOORE_NCAA_STATS ");
+		template.execute("delete from MOORE_NCAA_STATS where year = " + getYearFromData());
+	}
+
+	private String getYearFromData(){
+		String result = null;
+		try (FileReader reader = new FileReader(inputFile)){
+			char[] charArray = new char[4];
+			reader.read(charArray,0,4);
+			result = new String(charArray);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

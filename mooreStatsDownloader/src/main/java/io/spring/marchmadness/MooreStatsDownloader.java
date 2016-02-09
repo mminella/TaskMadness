@@ -27,6 +27,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
@@ -53,6 +54,8 @@ public class MooreStatsDownloader {
 
 		private boolean isDataSetComplete = false;
 
+		private String statsYear;
+
 
 		@Value("${statistics.url:http://sonnymoorepowerratings.com/m-basket.htm}")
 		private String statisticsUrl;
@@ -68,6 +71,7 @@ public class MooreStatsDownloader {
 		private void retrieveStats() throws IOException {
 			RestTemplate restTemplate = new RestTemplate();
 			String s = restTemplate.getForObject(statisticsUrl, String.class);
+			statsYear = extractYearFromUrl();
 			try (final FileWriter fw = new FileWriter(outputFileName)) {
 
 				//Prepare data
@@ -88,7 +92,8 @@ public class MooreStatsDownloader {
 		}
 		private void writeToCsvFile(FileWriter fw, String line) {
 			try {
-				if (line.startsWith("<A name=\"1alpha\">Alphabetical Listing</a><P></B>")){
+				if (line.startsWith("<A name=\"1alpha\">Alphabetical Listing</a><P></B>") ||
+						line.startsWith("<A HREF=\"http://sonnymoorepowerratings.com\">")){
 					isDataSetComplete = true;
 					return;
 				}
@@ -98,12 +103,12 @@ public class MooreStatsDownloader {
 			}
 		}
 		private String makeCommaDelimitedLine(String line){
-			String result = "";
+			String result = statsYear + ",";
 			String[] tokens = StringUtils.tokenizeToStringArray(line," ",true,false);
 			int counter = 0;
 			for(String token : tokens){
 				if(counter == 0){
-					result = token;
+					result = result + token;
 				}
 				else if(counter == 1){
 					result = result + DELIMITER + token;
@@ -119,6 +124,20 @@ public class MooreStatsDownloader {
 			}
 			return result;
 		}
+		private String extractYearFromUrl(){
+			String result = "2016";
+			String[] tokens =
+					StringUtils.tokenizeToStringArray(statisticsUrl,"/",true,false);
 
+			Assert.isTrue(tokens.length == 3,
+					"url did not tokens did not match expected number.");
+			if(tokens[2].startsWith("cb")){
+				result = "20" + tokens[2].substring(2,4);
+				Integer year = Integer.valueOf(result) + 1;
+				result = year.toString();
+			}
+
+			return result;
+		}
 	}
 }

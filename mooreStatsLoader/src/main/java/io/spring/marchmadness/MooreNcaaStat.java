@@ -28,6 +28,7 @@ public class MooreNcaaStat {
 	private int tie;
 	private double sos;
 	private double pr;
+	private int year;
 
 	public int getRank() {
 		return rank;
@@ -93,6 +94,14 @@ public class MooreNcaaStat {
 		this.pr = pr;
 	}
 
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	@Override
 	public String toString() {
 		return "MooreNcaaStat{" +
@@ -104,6 +113,7 @@ public class MooreNcaaStat {
 				", tie=" + tie +
 				", sos=" + sos +
 				", pr=" + pr +
+				", year=" + year +
 				'}';
 	}
 }

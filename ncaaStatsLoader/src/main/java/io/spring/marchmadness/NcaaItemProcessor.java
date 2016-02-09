@@ -16,24 +16,27 @@
 
 package io.spring.marchmadness;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.task.configuration.EnableTask;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.batch.item.ItemProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 /**
- * Retrieves NCAA Stats from USA Today and writes out a csv file with the results.
  * @author Glenn Renfro
  */
-@SpringBootApplication
-@EnableTask
-@PropertySource(value = { "application.properties","NcaaNames.properties" })
-public class NcaaStatsLoader {
+public class NcaaItemProcessor implements ItemProcessor<NcaaStats,NcaaStats> {
 
-	private static final String DELIMITER = ",";
+	@Autowired
+	private Environment env;
 
-	public static void main(String[] args) {
-		SpringApplication.run(NcaaStatsLoader.class, args);
+	@Override
+	public NcaaStats process(NcaaStats item) throws Exception {
+		String name = item.getName().replace(' ', '.');
+		String translatedName = env.getProperty(name);
+		if(translatedName != null){
+			item.setName(translatedName);
+		}else {
+			item.setName(item.getName()+"**************");
+		}
+		return item;
 	}
-
 }
