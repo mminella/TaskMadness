@@ -22,11 +22,17 @@ import javax.sql.DataSource;
 
 import io.spring.marchmadness.domain.Bracket;
 import io.spring.marchmadness.domain.BracketRepository;
+import io.spring.marchmadness.enricher.BracketScoringTraversalCallback;
 import io.spring.marchmadness.enricher.BracketScoringTraversalCallbackFactory;
+import io.spring.marchmadness.enricher.TeamPopulatorTraversalCallback;
+import io.spring.marchmadness.filter.EliteEightFilterTraversalCallback;
+import io.spring.marchmadness.filter.FinalFourFilterTraversalCallback;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -59,67 +65,67 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 		bracketScoringTraversalCallbackFactoryBean.setDataSource(dataSource);
 
 		Map<String, Bracket> results = new HashMap<>(2);
-//
-//		bracketRepository.findViableBrackets()
-//				.filter(bracket -> {
-//					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
-//					bracket.traverse(callback);
-//					return callback.isValid();
-//				})
-//				.filter(bracket -> {
-//					EliteEightFilterTraversalCallback callback = new EliteEightFilterTraversalCallback();
-//					bracket.traverse(callback);
-//					return callback.isValid();
-//				})
-//				.map(bracket -> {
-//					TeamPopulatorTraversalCallback callback = new TeamPopulatorTraversalCallback(env);
-//					bracket.traverse(callback);
-//					return bracket;
-//				})
-//				.map(bracket -> {
-//					BracketScoringTraversalCallback callback = bracketScoringTraversalCallbackFactoryBean.getObject();
-//					bracket.traverse(callback);
-//					bracket.setScore(callback.getBracketScore());
-//					return bracket;
-//				})
-//				.forEach(bracket -> {
-//					if(!results.containsKey(MIN_BRACKET)) {
-//						results.put(MIN_BRACKET, bracket);
-//						results.put(MAX_BRACKET, bracket);
-//					}
-//					else {
-//						Bracket minBracket = results.get(MIN_BRACKET);
-//						Bracket maxBracket = results.get(MAX_BRACKET);
-//
-//						if(minBracket.getScore() > bracket.getScore()) {
-//							results.put(MIN_BRACKET, bracket);
-//						}
-//
-//						if(maxBracket.getScore() < bracket.getScore()) {
-//							results.put(MAX_BRACKET, bracket);
-//						}
-//					}
-//				});
-//
-//		JdbcOperations jdbcTemplate = new JdbcTemplate(this.dataSource);
-//
-//		Bracket maxBracket = results.get(MAX_BRACKET);
-//
-//		jdbcTemplate.update(BRACKET_RESULTS, maxBracket.getId(), maxBracket.getScore());
-//
-//		System.out.println("************** MAX ****************");
-//		System.out.println("Winner: " + maxBracket.getWinner().getTeamName());
-//		System.out.println("Score: " + maxBracket.getScore());
-//		System.out.println("Bracket Id: " + maxBracket.getId());
-//
-//		Bracket minBracket = results.get(MIN_BRACKET);
-//
-//		jdbcTemplate.update(BRACKET_RESULTS, minBracket.getId(), minBracket.getScore());
-//
-//		System.out.println("************** MIN ****************");
-//		System.out.println("Winner: " + minBracket.getWinner().getTeamName());
-//		System.out.println("Score: " + minBracket.getScore());
-//		System.out.println("Bracket Id: " + minBracket.getId());
+
+		bracketRepository.findViableBrackets()
+				.filter(bracket -> {
+					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
+					bracket.traverse(callback);
+					return callback.isValid();
+				})
+				.filter(bracket -> {
+					EliteEightFilterTraversalCallback callback = new EliteEightFilterTraversalCallback();
+					bracket.traverse(callback);
+					return callback.isValid();
+				})
+				.map(bracket -> {
+					TeamPopulatorTraversalCallback callback = new TeamPopulatorTraversalCallback(env);
+					bracket.traverse(callback);
+					return bracket;
+				})
+				.map(bracket -> {
+					BracketScoringTraversalCallback callback = bracketScoringTraversalCallbackFactoryBean.getObject();
+					bracket.traverse(callback);
+					bracket.setScore(callback.getBracketScore());
+					return bracket;
+				})
+				.forEach(bracket -> {
+					if(!results.containsKey(MIN_BRACKET)) {
+						results.put(MIN_BRACKET, bracket);
+						results.put(MAX_BRACKET, bracket);
+					}
+					else {
+						Bracket minBracket = results.get(MIN_BRACKET);
+						Bracket maxBracket = results.get(MAX_BRACKET);
+
+						if(minBracket.getScore() > bracket.getScore()) {
+							results.put(MIN_BRACKET, bracket);
+						}
+
+						if(maxBracket.getScore() < bracket.getScore()) {
+							results.put(MAX_BRACKET, bracket);
+						}
+					}
+				});
+
+		JdbcOperations jdbcTemplate = new JdbcTemplate(this.dataSource);
+
+		Bracket maxBracket = results.get(MAX_BRACKET);
+
+		jdbcTemplate.update(BRACKET_RESULTS, maxBracket.getId(), maxBracket.getScore());
+
+		System.out.println("************** MAX ****************");
+		System.out.println("Winner: " + maxBracket.getWinner().getTeamName());
+		System.out.println("Score: " + maxBracket.getScore());
+		System.out.println("Bracket Id: " + maxBracket.getId());
+
+		Bracket minBracket = results.get(MIN_BRACKET);
+
+		jdbcTemplate.update(BRACKET_RESULTS, minBracket.getId(), minBracket.getScore());
+
+		System.out.println("************** MIN ****************");
+		System.out.println("Winner: " + minBracket.getWinner().getTeamName());
+		System.out.println("Score: " + minBracket.getScore());
+		System.out.println("Bracket Id: " + minBracket.getId());
 
 //				.collect(groupingBy(bracket4 ->
 //					bracket4.getWinner().getTeamName(), counting()

@@ -29,7 +29,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 public class BracketScoringTraversalCallbackFactory {
 
 	private static final String USA_TODAY_STATS = "select name, rating from NCAA_STATS where year = 2016 order by rating desc";
-	private static final String MOORE_STATS = "select name, pr from MOORE_NCAA_STATS where year = 2016 order by rating desc";
+	private static final String MOORE_STATS = "select name, pr from MOORE_NCAA_STATS where year = 2016 order by pr desc";
 
 	private JdbcOperations jdbcTemplate;
 
@@ -50,7 +50,7 @@ public class BracketScoringTraversalCallbackFactory {
 				return null;
 			});
 			jdbcTemplate.query(MOORE_STATS, (rs, rowNum) -> {
-				mooreRankings.put(rs.getString("name"), rs.getLong("rating"));
+				mooreRankings.put(rs.getString("name"), rs.getLong("pr"));
 				return null;
 			});
 
