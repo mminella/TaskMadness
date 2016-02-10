@@ -74,7 +74,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-task-core</artifactId>
-				<version>1.0.0.M1</version>
+				<version>1.0.0.BUILD-SNAPSHOT</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
