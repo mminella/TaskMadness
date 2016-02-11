@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @EnableTask
-//@Import(TaskConfiguration.class)
 @PropertySource("classpath:/teams.properties")
 public class BracketScorerApplication {
 

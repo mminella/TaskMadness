@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <meta charset="UTF-8"/>
+    <title>NCAA Bracket - Task Executions</title>
+</head>
+<body>
+<div layout:fragment="content" class="container" id="listContent">
+    <div class="row">
+        <h2 class="col-md-6">Task Executions</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+            <table id="listTable" class="table">
+                <thead>
+                    <tr>
+                        <td>Execution Id</td>
+                        <td>Task Name</td>
+                        <td>Start Time</td>
+                        <td>End Time</td>
+                        <td>Exit Code</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr class="clickableRow" th:each="execution : ${page.content}" th:attr="data-href=@{'/task/' + ${execution.executionId}}">
+                    <td>
+                        <div>
+                            <div th:text="${execution.executionId}" class="text-center">1</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div th:text="${execution.taskName}" class="text-center">1</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div th:text="${execution.startTime}" class="text-center">1</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div th:text="${execution.endTime}" class="text-center">1</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <div th:text="${execution.exitCode}" class="text-center">1</div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-3"><img src="/images/banner1.png" alt="Think you know Spring?"/></div>
+    </div>
+    <div th:include="fragments :: paginationbar"></div>
+    <script>
+        jQuery(document).ready(function($) {
+            $(".clickableRow").click(function(event) {
+                console.log($(event.target).parents("tr").attr("data-href"));
+//                console.log($(event.target).closest("tr").data("href"));
+                window.document.location = $(event.target).parents("tr").attr("data-href");
+            });
+        });
+    </script>
+</div>
+</body>
+</html>

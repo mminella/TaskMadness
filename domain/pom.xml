@@ -12,6 +12,8 @@
 
 	<artifactId>domain</artifactId>
 
+	<name>Bracket Domain</name>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
