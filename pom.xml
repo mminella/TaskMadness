@@ -84,6 +84,10 @@
 			<id>spring-milestone</id>
 			<url>https://repo.spring.io/libs-milestone-local</url>
 		</repository>
+		<repository>
+			<id>spring-snapshot</id>
+			<url>https://repo.spring.io/libs-snapshot-local</url>
+		</repository>
 	</repositories>
 
 	<build>
