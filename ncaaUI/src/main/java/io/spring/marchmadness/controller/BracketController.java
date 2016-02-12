@@ -15,8 +15,45 @@
  */
 package io.spring.marchmadness.controller;
 
+import io.spring.marchmadness.domain.Bracket;
+import io.spring.marchmadness.domain.BracketRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /**
  * @author Michael Minella
  */
+@Controller
+@RequestMapping("/")
 public class BracketController {
+
+	private static final String MAX_BRACKET = "select a.id from (select max(score), id from BRACKET_RESULTS) as a";
+
+	@Autowired
+	private JdbcOperations jdbcTemplate;
+
+	@Autowired
+	private BracketRepository bracketRepository;
+
+	@RequestMapping(value = "", method = RequestMethod.GET)
+	public String get(Model model) {
+		String bracketId = jdbcTemplate.queryForObject(MAX_BRACKET, String.class);
+
+		System.out.println(">> Going to display id " + bracketId);
+
+		return "bracket/index";
+	}
+
+	@RequestMapping(value = "{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Bracket get(@PathVariable("id") String id, Model model) {
+		return bracketRepository.findOne(id);
+	}
 }

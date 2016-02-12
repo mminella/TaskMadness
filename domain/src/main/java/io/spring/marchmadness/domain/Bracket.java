@@ -55,6 +55,10 @@ public class Bracket {
 		this.score = score;
 	}
 
+	public Tree getBracket() {
+		return this.bracket;
+	}
+
 	@Override
 	public String toString() {
 		return bracket.toString();

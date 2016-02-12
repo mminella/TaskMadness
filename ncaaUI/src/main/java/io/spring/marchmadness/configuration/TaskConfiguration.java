@@ -24,6 +24,8 @@ import org.springframework.cloud.task.repository.dao.TaskExecutionDao;
 import org.springframework.cloud.task.repository.support.SimpleTaskExplorer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 /**
  * @author Michael Minella
@@ -38,5 +40,10 @@ public class TaskConfiguration {
 	public TaskExplorer taskExplorer() {
 		TaskExecutionDao dao = new JdbcTaskExecutionDao(this.dataSource);
 		return new SimpleTaskExplorer(dao);
+	}
+
+	@Bean
+	public JdbcOperations jdbcTemplate() {
+		return new JdbcTemplate(this.dataSource);
 	}
 }
