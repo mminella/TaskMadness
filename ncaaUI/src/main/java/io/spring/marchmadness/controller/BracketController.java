@@ -17,8 +17,10 @@ package io.spring.marchmadness.controller;
 
 import io.spring.marchmadness.domain.Bracket;
 import io.spring.marchmadness.domain.BracketRepository;
+import io.spring.marchmadness.domain.support.TeamPopulatorTraversalCallback;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +44,16 @@ public class BracketController {
 	@Autowired
 	private BracketRepository bracketRepository;
 
+	@Autowired
+	private Environment env;
+
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String get(Model model) {
 		String bracketId = jdbcTemplate.queryForObject(MAX_BRACKET, String.class);
 
 		System.out.println(">> Going to display id " + bracketId);
+
+		model.addAttribute("bracketId", bracketId);
 
 		return "bracket/index";
 	}
@@ -54,6 +61,10 @@ public class BracketController {
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Bracket get(@PathVariable("id") String id, Model model) {
-		return bracketRepository.findOne(id);
+		Bracket bracket = bracketRepository.findOne(id);
+
+		bracket.traverse(new TeamPopulatorTraversalCallback(env));
+
+		return bracket;
 	}
 }

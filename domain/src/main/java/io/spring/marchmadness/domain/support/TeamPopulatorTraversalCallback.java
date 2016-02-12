@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.spring.marchmadness.enricher;
+package io.spring.marchmadness.domain.support;
 
 import io.spring.marchmadness.domain.Node;
 import io.spring.marchmadness.domain.Team;

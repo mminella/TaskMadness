@@ -61,7 +61,6 @@
         jQuery(document).ready(function($) {
             $(".clickableRow").click(function(event) {
                 console.log($(event.target).parents("tr").attr("data-href"));
-//                console.log($(event.target).closest("tr").data("href"));
                 window.document.location = $(event.target).parents("tr").attr("data-href");
             });
         });

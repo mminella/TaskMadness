@@ -24,7 +24,7 @@ import io.spring.marchmadness.domain.Bracket;
 import io.spring.marchmadness.domain.BracketRepository;
 import io.spring.marchmadness.enricher.BracketScoringTraversalCallback;
 import io.spring.marchmadness.enricher.BracketScoringTraversalCallbackFactory;
-import io.spring.marchmadness.enricher.TeamPopulatorTraversalCallback;
+import io.spring.marchmadness.domain.support.TeamPopulatorTraversalCallback;
 import io.spring.marchmadness.filter.EliteEightFilterTraversalCallback;
 import io.spring.marchmadness.filter.FinalFourFilterTraversalCallback;
 

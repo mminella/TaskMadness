@@ -33,6 +33,10 @@ public class Node {
 		this.level = level;
 	}
 
+	public Node[] getChildren() {
+		return this.children;
+	}
+
 	public Node getLeft() {
 		return this.children == null? null : this.children[0];
 	}
