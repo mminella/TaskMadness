@@ -15,6 +15,8 @@
  */
 package io.spring.marchmadness.domain;
 
+import org.springframework.data.annotation.Transient;
+
 /**
  * Source: http://www.geeksforgeeks.org/reverse-level-order-traversal/
  *
@@ -37,10 +39,12 @@ public class Node {
 		return this.children;
 	}
 
+	@Transient
 	public Node getLeft() {
 		return this.children == null? null : this.children[0];
 	}
 
+	@Transient
 	public Node getRight() {
 		return this.children == null? null : this.children[1];
 	}

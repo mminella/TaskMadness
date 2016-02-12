@@ -36,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/")
 public class BracketController {
 
-	private static final String MAX_BRACKET = "select a.id from (select max(score), id from BRACKET_RESULTS) as a";
+	private static final String MAX_BRACKET = "select id from BRACKET_RESULTS order by score desc limit 1";
 
 	@Autowired
 	private JdbcOperations jdbcTemplate;

@@ -47,6 +47,8 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
 	private static final String BRACKET_RESULTS = "insert into BRACKET_RESULTS (ID, SCORE) values (?, ?)";
 
+	private static final String DELETE_OLD_RESULTS = "delete from BRACKET_RESULTS";
+
 	@Autowired
 	private BracketRepository bracketRepository;
 
@@ -108,6 +110,8 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 				});
 
 		JdbcOperations jdbcTemplate = new JdbcTemplate(this.dataSource);
+
+		jdbcTemplate.update(DELETE_OLD_RESULTS);
 
 		Bracket maxBracket = results.get(MAX_BRACKET);
 
