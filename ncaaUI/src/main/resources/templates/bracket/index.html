@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Bracket Visualization</title>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="/js/d3.v3.min.js"></script>
     <style type="text/css">
 
         .node circle {
@@ -29,7 +29,7 @@
 </head>
 <body>
 <div layout:fragment="content" class="container" id="listContent">
-<h1>Bracket</h1>
+<h1 class="text-center">2016 NCAA Bracket</h1>
 <div id="chart" th:attr="data-bracket-id=${bracketId}"></div>
 <script type="text/javascript">
 
@@ -52,7 +52,6 @@
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     d3.json("/" + getId(), function(error, data) {
-        console.log(data.bracket.root);
         root = data.bracket.root;
         update(root);
     });
@@ -61,8 +60,6 @@
         var elements = window.location.href.split('/');
 
         var id = elements[elements.length - 1];
-
-        console.log(">> id = " + id);
 
         if(id.length == 0) {
             id = $("#chart").attr("data-bracket-id");
@@ -88,7 +85,8 @@
         var nodeEnter = node.enter().append("g")
                 .attr("class", "node")
                 .attr("transform", function(d) {
-                    return "translate(" + d.y + "," + d.x + ")"; });
+                    return "translate(" + d.y + "," + d.x + ")";
+                });
 
         nodeEnter.append("circle")
                 .attr("r", 10)
@@ -102,7 +100,14 @@
                 .attr("text-anchor", function(d) {
                     curChildren = [d.left, d.right];
                     return curChildren ? "end" : "start"; })
-                .text(function(d) { return d.team.region + ":" + d.team.seed + ":" + d.team.teamName; })
+                .text(function(d) {
+                    if(d.level > 0) {
+                        return d.team.teamName;
+                    }
+                    else {
+                        return d.team.region + ":" + d.team.seed + ":" + d.team.teamName;
+                    }
+                })
                 .style("fill-opacity", 1);
 
         // Declare the links¦
@@ -112,7 +117,12 @@
         // Enter the links.
         link.enter().insert("path", "g")
                 .attr("class", "link")
-                .attr("d", diagonal);
+                .attr("d", elbow);
+
+        function elbow(d, i) {
+            return "M" + d.source.y + "," + d.source.x
+                    + "V" + d.target.x + "H" + d.target.y;
+        }
 
     }
 </script>

@@ -177,3 +177,15 @@ footer a:hover {
 #recommendations {
     padding-bottom: 10px;
 }
+
+.clickableRow {
+    cursor: pointer;
+}
+
+.clickableRow:hover {
+    background-color: #ccd9ef;
+}
+
+#backLink {
+    margin-top: 20px;
+}

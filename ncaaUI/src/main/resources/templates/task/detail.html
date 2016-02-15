@@ -9,43 +9,102 @@
 <body>
 <div layout:fragment="content" class="container" id="listContent">
     <div class="row">
-        <h2 class="col-md-6">Task Executions</h2>
+        <h2 class="col-md-3">Task Execution Detail</h2>
+        <div class="col-md-7">&nbsp;</div>
+        <a id="backLink" class="col-md-2 text-right" href="/task">Back</a>
     </div>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-12">
             <table id="listTable" class="table">
                 <tbody>
                 <tr>
-                    <td>
+                    <td class="col-md-2">
                         <div>
-                            <div th:text="${task.executionId}" class="text-center">1</div>
+                            <div>Execution ID</div>
                         </div>
                     </td>
-                    <td>
+                    <td class="col-md-10">
                         <div>
-                            <div th:text="${task.taskName}" class="text-center">1</div>
+                            <div th:text="${task.executionId}">1</div>
                         </div>
                     </td>
-                    <td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
                         <div>
-                            <div th:text="${task.startTime}" class="text-center">1</div>
+                            <div>Task Name</div>
                         </div>
                     </td>
-                    <td>
+                    <td class="col-md-10">
                         <div>
-                            <div th:text="${task.endTime}" class="text-center">1</div>
+                            <div th:text="${task.taskName}">1</div>
                         </div>
                     </td>
-                    <td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
                         <div>
-                            <div th:text="${task.exitCode}" class="text-center">1</div>
+                            <div>Start Time</div>
+                        </div>
+                    </td>
+                    <td class="col-md-10">
+                        <div>
+                            <div th:text="${task.startTime}">1</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <div>
+                            <div>End Time</div>
+                        </div>
+                    </td>
+                    <td class="col-md-10">
+                        <div>
+                            <div th:text="${task.endTime}">1</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <div>
+                            <div>Exit Code</div>
+                        </div>
+                    </td>
+                    <td class="col-md-10">
+                        <div>
+                            <div th:text="${task.exitCode}">1</div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <div>
+                            <div>Exit Message</div>
+                        </div>
+                    </td>
+                    <td class="col-md-10">
+                        <div>
+                            <div>
+                                <pre th:text="${task.exitMessage}"></pre></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">
+                        <div>
+                            <div>Task Parameters</div>
+                        </div>
+                    </td>
+                    <td class="col-md-10">
+                        <div>
+                            <div th:each="parameter : ${task.parameters}"  th:text="${parameter}">1</div>
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <div class="col-md-3"><img src="/images/banner1.png" alt="Think you know Spring?"/></div>
     </div>
 </div>
 </body>
