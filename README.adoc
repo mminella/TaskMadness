@@ -54,3 +54,6 @@ java -jar java -jar bracketScorer/target/bracket-scorer-0.0.1-SNAPSHOT.jar
 ```
 
 === Running the UI
+```
+java -jar java -jar ncaaUI/target/ncaa-ui-0.0.1-SNAPSHOT.jar
+```
