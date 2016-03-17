@@ -30,6 +30,7 @@ public class BracketScoringTraversalCallbackFactory {
 
 	private static final String USA_TODAY_STATS = "select name, rating from NCAA_STATS where year = 2016 order by rating desc";
 	private static final String MOORE_STATS = "select name, pr from MOORE_NCAA_STATS where year = 2016 order by pr desc";
+	private static final String KENPOM_STATS = "select name, rank from KENPOM_STATS where year = 2016 order by rank desc";
 
 	private JdbcOperations jdbcTemplate;
 
@@ -43,6 +44,7 @@ public class BracketScoringTraversalCallbackFactory {
 
 		final Map<String, Long> usaTodayRankings = new HashMap<>();
 		final Map<String, Long> mooreRankings = new HashMap<>();
+		final Map<String, Long> kenpomRankings = new HashMap<>();
 
 		if(rankings.isEmpty()) {
 			jdbcTemplate.query(USA_TODAY_STATS, (rs, rowNum) -> {
@@ -53,18 +55,26 @@ public class BracketScoringTraversalCallbackFactory {
 				mooreRankings.put(rs.getString("name"), rs.getLong("pr"));
 				return null;
 			});
+			jdbcTemplate.query(KENPOM_STATS, (rs, rowNum) -> {
+				kenpomRankings.put(rs.getString("name"), rs.getLong("rank"));
+				return null;
+			});
 
 			for (Map.Entry<String, Long> teamRanking : usaTodayRankings.entrySet()) {
 
 				String teamName = teamRanking.getKey();
 
-				if(mooreRankings.containsKey(teamName)) {
-					rankings.put(teamName, (teamRanking.getValue() * 7) + (mooreRankings.get(teamName) * 3));
-				}
-				else {
-					System.out.println(">> Missing name from Moore: " + teamName);
+				if(mooreRankings.containsKey(teamName) && kenpomRankings.containsKey(teamName)) {
+					rankings.put(teamName, (teamRanking.getValue() * 3) + (mooreRankings.get(teamName) * 3) + (kenpomRankings.get(teamName) * 6));
 				}
 
+				if(!mooreRankings.containsKey(teamName)) {
+					System.out.println("Moore missing name: " + teamName);
+				}
+
+				if(!kenpomRankings.containsKey(teamName)) {
+					System.out.println("Kenpom missing name: " + kenpomRankings);
+				}
 			}
 		}
 
