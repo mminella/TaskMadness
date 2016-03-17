@@ -25,6 +25,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider;
@@ -33,9 +34,11 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ResourceLoader;
 
 /**
@@ -47,6 +50,9 @@ public class KenpomStatConfiguration {
 
 	@Value("${input.filename:kenpom.csv}")
 	private String inputFileName;
+
+	@Autowired
+	private Environment env;
 
 	@Bean
 	public ItemReader<KenpomNcaaStat> reader(ResourceLoader resourceLoader) {
@@ -62,6 +68,23 @@ public class KenpomStatConfiguration {
 			}});
 		}});
 		return reader;
+	}
+
+	@Bean
+	public ItemProcessor<KenpomNcaaStat, KenpomNcaaStat> itemProcessor() {
+		return kenpomNcaaStat -> {
+			String key = kenpomNcaaStat.getName().toUpperCase();
+			key = key.replaceAll(" ", ".");
+
+			if(env.containsProperty(key)) {
+				kenpomNcaaStat.setName(env.getProperty(key).toUpperCase());
+			}
+			else {
+				kenpomNcaaStat.setName(kenpomNcaaStat.getName().toUpperCase());
+			}
+
+			return kenpomNcaaStat;
+		};
 	}
 
 	@Bean
@@ -94,6 +117,7 @@ public class KenpomStatConfiguration {
 		return stepBuilderFactory.get("step1")
 				.<KenpomNcaaStat, KenpomNcaaStat>chunk(10)
 				.reader(reader)
+				.processor(itemProcessor())
 				.writer(writer)
 				.build();
 	}

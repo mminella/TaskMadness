@@ -73,7 +73,7 @@ public class BracketScoringTraversalCallbackFactory {
 				}
 
 				if(!kenpomRankings.containsKey(teamName)) {
-					System.out.println("Kenpom missing name: " + kenpomRankings);
+					System.out.println("Kenpom missing name: " + teamName);
 				}
 			}
 		}

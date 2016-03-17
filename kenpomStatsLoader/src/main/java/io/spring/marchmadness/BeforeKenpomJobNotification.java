@@ -42,6 +42,6 @@ public class BeforeKenpomJobNotification extends JobExecutionListenerSupport {
 	@Override
 	public void beforeJob(JobExecution jobExecution) {
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
-		template.execute("delete from KENPOM_STATS where year = 2016");
+		template.execute("delete from KENPOM_STATS where year = 2015");
 	}
 }

@@ -38,7 +38,7 @@ public class TaskConfiguration {
 	private DataSource dataSource;
 
 	@Bean
-	public TaskExplorer taskExplorer() {
+	public TaskExplorer taskExplorer() throws Exception {
 		TaskExecutionDaoFactoryBean factoryBean = new TaskExecutionDaoFactoryBean(this.dataSource);
 		return new SimpleTaskExplorer(factoryBean);
 	}
