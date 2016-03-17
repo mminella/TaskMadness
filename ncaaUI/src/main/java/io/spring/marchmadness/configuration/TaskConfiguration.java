@@ -22,6 +22,7 @@ import org.springframework.cloud.task.repository.TaskExplorer;
 import org.springframework.cloud.task.repository.dao.JdbcTaskExecutionDao;
 import org.springframework.cloud.task.repository.dao.TaskExecutionDao;
 import org.springframework.cloud.task.repository.support.SimpleTaskExplorer;
+import org.springframework.cloud.task.repository.support.TaskExecutionDaoFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -35,12 +36,13 @@ public class TaskConfiguration {
 
 	@Autowired
 	private DataSource dataSource;
-
-	@Bean
-	public TaskExplorer taskExplorer() {
-		TaskExecutionDao dao = new JdbcTaskExecutionDao(this.dataSource);
-		return new SimpleTaskExplorer(dao);
-	}
+//
+//	@Bean
+//	public TaskExplorer taskExplorer() {
+//		TaskExecutionDaoFactoryBean
+//		TaskExecutionDao dao = new JdbcTaskExecutionDao(this.dataSource);
+//		return new SimpleTaskExplorer(dao);
+//	}
 
 	@Bean
 	public JdbcOperations jdbcTemplate() {

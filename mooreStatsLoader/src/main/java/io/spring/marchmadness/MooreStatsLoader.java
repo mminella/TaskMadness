@@ -28,8 +28,6 @@ import org.springframework.cloud.task.configuration.EnableTask;
 @EnableTask
 public class MooreStatsLoader {
 
-	private static final String DELIMITER = ",";
-
 	public static void main(String[] args) {
 		SpringApplication.run(MooreStatsLoader.class, args);
 	}

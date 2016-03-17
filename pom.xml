@@ -59,6 +59,8 @@
 			<module>mooreStatsDownloader</module>
 			<module>ncaaStatsLoader</module>
 			<module>mooreStatsLoader</module>
+			<module>kenpomDownloader</module>
+			<module>kenpomStatsLoader</module>
 			<module>bracketScorer</module>
 			<module>bracketGenerator</module>
 			<module>ncaaUI</module>
