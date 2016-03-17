@@ -15,9 +15,6 @@
  */
 package io.spring.marchmadness.domain.support;
 
-import java.util.List;
-import java.util.Map;
-
 import org.junit.Test;
 
 /**
@@ -27,24 +24,24 @@ public class ExponentialDistributionModelTraversalCallbackTests {
 
 	@Test
 	public void test() {
-		ExponentialDistributionModelTraversalCallback.initialize();
-		Map<String, List<Boolean>> odds = ExponentialDistributionModelTraversalCallback.odds;
-
-		for (Map.Entry<String, List<Boolean>> entry : odds.entrySet()) {
-			List<Boolean> value = entry.getValue();
-
-			int count = 0;
-
-			for (Boolean aBoolean : value) {
-				if(aBoolean) {
-					count++;
-				}
-				else {
-					break;
-				}
-			}
-
-			System.out.println(entry.getKey() + " : " + count + "/" + value.size());
-		}
+//		ExponentialDistributionModelTraversalCallback.initialize();
+//		Map<String, List<Boolean>> odds = ExponentialDistributionModelTraversalCallback.odds;
+//
+//		for (Map.Entry<String, List<Boolean>> entry : odds.entrySet()) {
+//			List<Boolean> value = entry.getValue();
+//
+//			int count = 0;
+//
+//			for (Boolean aBoolean : value) {
+//				if(aBoolean) {
+//					count++;
+//				}
+//				else {
+//					break;
+//				}
+//			}
+//
+//			System.out.println(entry.getKey() + " : " + count + "/" + value.size());
+//		}
 	}
 }

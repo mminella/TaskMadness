@@ -36,13 +36,12 @@ public class TaskConfiguration {
 
 	@Autowired
 	private DataSource dataSource;
-//
-//	@Bean
-//	public TaskExplorer taskExplorer() {
-//		TaskExecutionDaoFactoryBean
-//		TaskExecutionDao dao = new JdbcTaskExecutionDao(this.dataSource);
-//		return new SimpleTaskExplorer(dao);
-//	}
+
+	@Bean
+	public TaskExplorer taskExplorer() throws Exception {
+		TaskExecutionDaoFactoryBean factoryBean = new TaskExecutionDaoFactoryBean(this.dataSource);
+		return new SimpleTaskExplorer(factoryBean);
+	}
 
 	@Bean
 	public JdbcOperations jdbcTemplate() {

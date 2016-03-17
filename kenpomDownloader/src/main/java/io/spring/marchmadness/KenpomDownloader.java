@@ -24,7 +24,10 @@ public class KenpomDownloader {
 	@Component
 	public static class DownloaderTask implements CommandLineRunner {
 
+		// 2016
 		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w-]+\">(\\.\\d+)");
+		// 2015
+//		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\&y=2015\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\&y=2015\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w-]+\">(\\.\\d+)");
 
 		@Value("${statistics.url:http://kenpom.com/}")
 		private String statisticsUrl;
@@ -46,6 +49,10 @@ public class KenpomDownloader {
 
 				String[] tempData = new String[479];
 
+				// 2015
+				// System.arraycopy(rawStatistics, 142, tempData, 0, 479);
+
+				// 2016
 				System.arraycopy(rawStatistics, 143, tempData, 0, 479);
 
 				//create the stream
