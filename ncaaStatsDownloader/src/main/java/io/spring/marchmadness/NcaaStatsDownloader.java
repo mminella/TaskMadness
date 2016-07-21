@@ -60,6 +60,8 @@ public class NcaaStatsDownloader {
 
 		private String statsYear;
 
+		private int lineCount;
+
 		@Override
 		public void run(String... strings) throws Exception {
 			retrieveStats();
@@ -83,6 +85,7 @@ public class NcaaStatsDownloader {
 				lines.filter(line -> line.startsWith(" ")).
 						filter(line -> line.contains(" = ") || line.contains("ETS= ")).
 						filter(line -> !line.startsWith("    ")).
+						filter(line -> lineCount < 351).
 						forEach(line -> writeToCsvFile(fw, line));
 
 			}
@@ -97,6 +100,8 @@ public class NcaaStatsDownloader {
 		private String makeCommaDelimitedLine(String line){
 			String result = "";
 			String[] tokens = StringUtils.tokenizeToStringArray(line," ",true,false);
+			lineCount++;
+			System.out.println(lineCount + " "  + line);
 			boolean isEqualFound = false;
 			int counter = 0;
 			for(String token : tokens){

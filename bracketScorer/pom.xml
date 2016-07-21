@@ -29,7 +29,7 @@
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-task-core</artifactId>
+			<artifactId>spring-cloud-task-starter</artifactId>
 		</dependency>
 
 		<dependency>
