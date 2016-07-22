@@ -16,12 +16,10 @@
 
 package io.spring.marchmadness;
 
-import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 import javax.sql.DataSource;
 
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.task.listener.annotation.BeforeTask;
@@ -33,7 +31,7 @@ import org.springframework.stereotype.Component;
  * @author Glenn Renfro
  */
 @Component
-public class BeforeKenpomJobNotification{
+public class BeforeKenpomJobNotification {
 
 	@Value("${input.filename:/tmp/kenpom.csv}")
 	private String inputFile;
@@ -41,8 +39,12 @@ public class BeforeKenpomJobNotification{
 	@Autowired
 	List<DataSource> dataSource;
 
+	@Autowired
+	KenpomDownloader kenpomDownloader;
+
 	@BeforeTask
-	public void beforeJob(TaskExecution taskExecution) {
+	public void beforeTask(TaskExecution taskExecution) throws IOException {
+		kenpomDownloader.retrieveStats();
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
 		template.execute("delete from KENPOM_STATS where year = 2015");
 	}

@@ -17,6 +17,7 @@
 package io.spring.marchmadness;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -40,10 +41,14 @@ public class BeforeMooreJobNotification  {
 	private String inputFile;
 
 	@Autowired
+	private MooreStatsDownloader mooreStatsDownloader;
+	@Autowired
 	List<DataSource> dataSource;
 
 	@BeforeTask
-	public void beforeJob(TaskExecution taskExecution) {
+	public void beforeTask(TaskExecution taskExecution) throws IOException {
+		mooreStatsDownloader.retrieveStats();
+
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
 		template.execute("delete from MOORE_NCAA_STATS where year = " + getYearFromData());
 	}

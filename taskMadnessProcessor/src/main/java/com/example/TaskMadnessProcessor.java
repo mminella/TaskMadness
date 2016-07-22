@@ -28,34 +28,11 @@ public class TaskMadnessProcessor {
 		}
 		Map<String, String> properties = new HashMap<String,String>();
 		String artifact = null;
-//		if(StringUtils.hasText(processorProperties.getDataSourceUrl())){
-//			properties.put("spring_datasource_url",processorProperties.getDataSourceUrl());
-//		}
-//		if(StringUtils.hasText(processorProperties.getDataSourceDriverClassName())){
-//			properties.put("spring_datasource_driverClassName",processorProperties.getDataSourceDriverClassName());
-//		}
-//		if(StringUtils.hasText(processorProperties.getDataSourceUserName())){
-//			properties.put("spring_datasource_username",processorProperties.getDataSourceUserName());
-//		}
-//		if(StringUtils.hasText(processorProperties.getDataSourcePassword())){
-//			properties.put("spring_datasource_password",processorProperties.getDataSourcePassword());
-//		}
 		properties.put("spring_datasource_url","jdbc:mariadb://localhost:3306/practice");
 		properties.put("spring_datasource_driverClassName", "org.mariadb.jdbc.Driver");
 		properties.put("spring_datasource_username", "root");
 		properties.put("spring_datasource_password","password");
-		if(taskExecution.getTaskName().equals("MooreStatsDownloader")) {
-			properties.put("input.filename", "/Users/glennrenfro/project/mminella/taskmadness/moore.csv");
-			artifact = "maven://io.spring.marchmadness:mooreStatsLoader:0.0.1-SNAPSHOT";
-		}
-		if(taskExecution.getTaskName().equals("NcaaStatsDownLoader")) {
-			properties.put("input.filename", "/Users/glennrenfro/project/mminella/taskmadness/output.csv");
-			artifact = "maven://io.spring.marchmadness:ncaaStatsLoader:0.0.1-SNAPSHOT";
-		}
-		if(taskExecution.getTaskName().equals("KenPomStatsDownLoader")) {
-			properties.put("input.filename", "/Users/glennrenfro/project/mminella/taskmadness/kenpom.csv");
-			artifact = "maven://io.spring.marchmadness:kenpomStatsLoader:0.0.1-SNAPSHOT";
-		}
+		artifact = "maven://io.spring.marchmadness:bracket-scorer:0.0.1-SNAPSHOT";
 		System.out.println("gotcha" + taskExecution.getExecutionId() + " " + taskExecution.getTaskName());
 		TaskLaunchRequest request = new TaskLaunchRequest(artifact, null, properties, null);
 		return new GenericMessage<TaskLaunchRequest>(request);

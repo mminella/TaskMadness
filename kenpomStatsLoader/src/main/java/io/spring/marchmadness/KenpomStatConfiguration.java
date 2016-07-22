@@ -102,10 +102,10 @@ public class KenpomStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener executionListener) {
+	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
 		return jobs.get("importUserJob")
 				.incrementer(new RunIdIncrementer())
-				.listener(executionListener)
+				.listener(jobExecutionEventsListener)
 				.flow(s1)
 				.end()
 				.build();
@@ -120,6 +120,11 @@ public class KenpomStatConfiguration {
 				.processor(itemProcessor())
 				.writer(writer)
 				.build();
+	}
+
+	@Bean
+	public KenpomDownloader kenpomDownloader() {
+		return new KenpomDownloader();
 	}
 
 }
