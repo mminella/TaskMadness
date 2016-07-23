@@ -55,10 +55,8 @@
 
         <modules>
 			<module>domain</module>
-			<module>ncaaStatsDownloader</module>
 			<module>ncaaStatsLoader</module>
 			<module>mooreStatsLoader</module>
-			<module>kenpomDownloader</module>
 			<module>kenpomStatsLoader</module>
 			<module>bracketScorer</module>
 			<module>bracketGenerator</module>
