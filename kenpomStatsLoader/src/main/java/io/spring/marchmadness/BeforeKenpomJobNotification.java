@@ -46,6 +46,6 @@ public class BeforeKenpomJobNotification {
 	public void beforeTask(TaskExecution taskExecution) throws IOException {
 		kenpomDownloader.retrieveStats();
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
-		template.execute("delete from KENPOM_STATS where year = 2015");
+		template.execute("delete from KENPOM_STATS where year = 2016");
 	}
 }

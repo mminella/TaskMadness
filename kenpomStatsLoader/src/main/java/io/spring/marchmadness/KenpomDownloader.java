@@ -35,7 +35,7 @@ public class KenpomDownloader {
 			// System.arraycopy(rawStatistics, 142, tempData, 0, 479);
 
 			// 2016
-			System.arraycopy(rawStatistics, 143, tempData, 0, 479);
+			System.arraycopy(rawStatistics, 142, tempData, 0, 479);
 
 			//create the stream
 			Stream<String> lines = Arrays.asList(tempData).stream();

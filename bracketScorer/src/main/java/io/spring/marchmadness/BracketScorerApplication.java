@@ -11,6 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 public class BracketScorerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.exit(SpringApplication.run(BracketScorerApplication.class, args));
+		SpringApplication.run(BracketScorerApplication.class, args);
 	}
 }
