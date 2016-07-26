@@ -81,8 +81,8 @@ public class MooreStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
-		return jobs.get("importUserJob")
+	public Job importMooreStatsJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
+		return jobs.get("importMooreStatJob")
 				.incrementer(new RunIdIncrementer())
 				.listener(jobExecutionEventsListener)
 				.flow(s1)

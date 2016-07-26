@@ -102,8 +102,8 @@ public class KenpomStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
-		return jobs.get("importUserJob")
+	public Job importKenPomJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
+		return jobs.get("importKenPomJob")
 				.incrementer(new RunIdIncrementer())
 				.listener(jobExecutionEventsListener)
 				.flow(s1)
