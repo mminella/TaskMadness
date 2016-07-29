@@ -16,22 +16,11 @@
 
 package io.spring.marchmadness;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cloud.task.configuration.EnableTask;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Retrieves NCAA Stats from USA Today and writes out a csv file with the results.
  * @author Glenn Renfro
  */
-@SpringBootApplication
-@EnableTask
-@EnableConfigurationProperties({ MooreStatsProperties.class })
-public class MooreStatsLoader {
-
-	public static void main(String[] args) {
-		SpringApplication.run(MooreStatsLoader.class, args);
-	}
-
+@ConfigurationProperties("moorestats")
+public class MooreStatsProperties {
 }
