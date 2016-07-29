@@ -102,10 +102,10 @@ public class NcaaStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener executionListener) {
-		return jobs.get("importUserJob")
+	public Job importNcaaStatsJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
+		return jobs.get("importNcaaStatsJob")
 				.incrementer(new RunIdIncrementer())
-				.listener(executionListener)
+				.listener(jobExecutionEventsListener)
 				.flow(s1)
 				.end()
 				.build();
@@ -122,6 +122,11 @@ public class NcaaStatConfiguration {
 				.processor(processor)
 				.writer(writer)
 				.build();
+	}
+
+	@Bean
+	public NcaaStatsDownloader ncaaStatsDownloader() {
+		return new NcaaStatsDownloader();
 	}
 
 }

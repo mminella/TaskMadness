@@ -11,6 +11,6 @@ import org.springframework.cloud.task.configuration.EnableTask;
 public class BracketGeneratorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.exit(SpringApplication.run(BracketGeneratorApplication.class, args));
+		SpringApplication.run(BracketGeneratorApplication.class, args);
 	}
 }

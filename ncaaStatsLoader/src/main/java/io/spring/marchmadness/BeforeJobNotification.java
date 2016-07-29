@@ -17,14 +17,15 @@
 package io.spring.marchmadness;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.task.listener.annotation.BeforeTask;
+import org.springframework.cloud.task.repository.TaskExecution;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -32,7 +33,7 @@ import org.springframework.stereotype.Component;
  * @author Glenn Renfro
  */
 @Component
-public class BeforeJobNotification extends JobExecutionListenerSupport {
+public class BeforeJobNotification {
 
 	@Value("${input.filename:output.csv}")
 	private String inputFile;
@@ -40,8 +41,12 @@ public class BeforeJobNotification extends JobExecutionListenerSupport {
 	@Autowired
 	List<DataSource> dataSource;
 
-	@Override
-	public void beforeJob(JobExecution jobExecution) {
+	@Autowired
+	NcaaStatsDownloader ncaaStatsDownloader;
+
+	@BeforeTask
+	public void beforeTask(TaskExecution taskExecution) throws IOException {
+		ncaaStatsDownloader.retrieveStats();
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
 		getYearFromData();
 		template.execute("delete from NCAA_STATS where year = " + getYearFromData());

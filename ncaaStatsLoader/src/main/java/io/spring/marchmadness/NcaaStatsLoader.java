@@ -18,6 +18,7 @@ package io.spring.marchmadness;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.PropertySource;
 
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.PropertySource;
 @SpringBootApplication
 @EnableTask
 @PropertySource(value = { "application.properties","NcaaNames.properties" })
+@EnableConfigurationProperties({ NcaaStatsProperties.class })
 public class NcaaStatsLoader {
 
 	private static final String DELIMITER = ",";

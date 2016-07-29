@@ -17,6 +17,7 @@
 package io.spring.marchmadness;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -25,6 +26,8 @@ import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.listener.JobExecutionListenerSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.task.listener.annotation.BeforeTask;
+import org.springframework.cloud.task.repository.TaskExecution;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -32,16 +35,20 @@ import org.springframework.stereotype.Component;
  * @author Glenn Renfro
  */
 @Component
-public class BeforeMooreJobNotification extends JobExecutionListenerSupport {
+public class BeforeMooreJobNotification  {
 
 	@Value("${input.filename:moore.csv}")
 	private String inputFile;
 
 	@Autowired
+	private MooreStatsDownloader mooreStatsDownloader;
+	@Autowired
 	List<DataSource> dataSource;
 
-	@Override
-	public void beforeJob(JobExecution jobExecution) {
+	@BeforeTask
+	public void beforeTask(TaskExecution taskExecution) throws IOException {
+		mooreStatsDownloader.retrieveStats();
+
 		JdbcTemplate template = new JdbcTemplate(dataSource.get(0));
 		template.execute("delete from MOORE_NCAA_STATS where year = " + getYearFromData());
 	}

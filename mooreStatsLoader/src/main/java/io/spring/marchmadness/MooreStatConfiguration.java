@@ -81,10 +81,10 @@ public class MooreStatConfiguration {
 	}
 
 	@Bean
-	public Job importUserJob(JobBuilderFactory jobs, Step s1, JobExecutionListener executionListener) {
-		return jobs.get("importUserJob")
+	public Job importMooreStatsJob(JobBuilderFactory jobs, Step s1, JobExecutionListener jobExecutionEventsListener) {
+		return jobs.get("importMooreStatJob")
 				.incrementer(new RunIdIncrementer())
-				.listener(executionListener)
+				.listener(jobExecutionEventsListener)
 				.flow(s1)
 				.end()
 				.build();
@@ -98,6 +98,11 @@ public class MooreStatConfiguration {
 				.reader(reader)
 				.writer(writer)
 				.build();
+	}
+
+	@Bean
+	public MooreStatsDownloader mooreStatsDownloader() {
+		return new MooreStatsDownloader();
 	}
 
 }

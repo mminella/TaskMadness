@@ -18,6 +18,7 @@ package io.spring.marchmadness;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.task.configuration.EnableTask;
 
 /**
@@ -26,9 +27,8 @@ import org.springframework.cloud.task.configuration.EnableTask;
  */
 @SpringBootApplication
 @EnableTask
+@EnableConfigurationProperties({ MooreStatsProperties.class })
 public class MooreStatsLoader {
-
-	private static final String DELIMITER = ",";
 
 	public static void main(String[] args) {
 		SpringApplication.run(MooreStatsLoader.class, args);
