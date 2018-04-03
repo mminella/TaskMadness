@@ -5,6 +5,13 @@ http://projects.spring.io/spring-boot/[Spring Boot] and
 http://cloud.spring.io/spring-cloud-task/[Spring Cloud Task] that gather NCAA stat data
 and attempts to predict the outcome of the March Madness Tournament.
 
+The system is designed with the ESPN model scoring in mind and has a goal of generated a
+bracket that will either score 800 points or be in the 80th percentile (or higher).  The
+bracket from this system has been entered in the ESPN Tounament Challenge twice:
+
+* 2016 - 740 points - 63 percentile
+* 2018 - 920 points - 83 percentile - http://games.espn.com/tournament-challenge-bracket/2018/en/entry?entryID=14489931
+
 === Building
 
 Build:
