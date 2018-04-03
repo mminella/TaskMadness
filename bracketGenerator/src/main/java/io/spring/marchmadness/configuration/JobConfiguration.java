@@ -53,7 +53,7 @@ public class JobConfiguration {
 		BracketGeneratingItemReader itemReader = new BracketGeneratingItemReader();
 
 		itemReader.setTraversalCallback(new ExponentialDistributionModelTraversalCallback());
-		itemReader.setMaxItemCount(5000000);
+		itemReader.setMaxItemCount(1000000);
 		itemReader.setName("bracketGeneratingItemReader");
 
 		return itemReader;

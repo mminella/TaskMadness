@@ -28,9 +28,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
  */
 public class BracketScoringTraversalCallbackFactory {
 
-	private static final String USA_TODAY_STATS = "select name, rating from NCAA_STATS where year = 2016 order by rating desc";
-	private static final String MOORE_STATS = "select name, pr from MOORE_NCAA_STATS where year = 2016 order by pr desc";
-	private static final String KENPOM_STATS = "select name, rank from KENPOM_STATS where year = 2016 order by rank desc";
+	private static final String USA_TODAY_STATS = "select name, rating from NCAA_STATS where year = 2018 order by rating desc";
+	private static final String MOORE_STATS = "select name, pr from MOORE_NCAA_STATS where year = 2018 order by pr desc";
+	private static final String KENPOM_STATS = "select name, rank from KENPOM_STATS where year = 2018 order by rank desc";
 
 	private JdbcOperations jdbcTemplate;
 
@@ -60,9 +60,12 @@ public class BracketScoringTraversalCallbackFactory {
 				return null;
 			});
 
+			System.out.println(">> entryset = " + usaTodayRankings.size());
 			for (Map.Entry<String, Long> teamRanking : usaTodayRankings.entrySet()) {
 
 				String teamName = teamRanking.getKey();
+
+				System.out.println(">> Calculating rankings for team: " + teamName);
 
 				if(mooreRankings.containsKey(teamName) && kenpomRankings.containsKey(teamName)) {
 					rankings.put(teamName, (teamRanking.getValue() * 3) + (mooreRankings.get(teamName) * 3) + (kenpomRankings.get(teamName) * 6));

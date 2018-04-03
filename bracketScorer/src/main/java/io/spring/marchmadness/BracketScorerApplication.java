@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 
 @SpringBootApplication
 @EnableTask
-@PropertySource("classpath:/teams2016.properties")
+@PropertySource("classpath:/teams2018.properties")
 public class BracketScorerApplication {
 
 	public static void main(String[] args) {

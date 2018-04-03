@@ -25,11 +25,13 @@ public class KenpomDownloader {
 	public static class DownloaderTask implements CommandLineRunner {
 
 		// 2016
-		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w-]+\">(\\.\\d+)");
+//		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w-]+\">(\\.\\d+)");
 		// 2015
 //		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\&y=2015\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\&y=2015\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w-]+\">(\\.\\d+)");
+		// 2018
+		private Pattern pattern = Pattern.compile("<tr(\\ class=\\\"tourney\\\")?><td(\\ class=\"bold-bottom\")?>(\\d+).*team=[\\w\\+\\.%]+\\\">([\\w\\+\\.\\ \\&amp\\;]+).*php\\?c=\\w+\\\">\\w+<\\/a><\\/td><td( class=\\\"[\\w- ]+\\\")?>(\\d+-\\d+)<\\/td><td( class=\\\"[\\w- ]+\\\")?>([+-]\\d+\\.\\d+)<\\/td>(<td( class=\\\"[\\w- ]+\\\")?>(<span class=\"[\\w]+\">)?[\\d\\w\\.\\+\\-]+(<\\/span>)?<\\/td>){8}<td class=\"[\\w- ]+\">([+-]\\d+\\.\\d+)");
 
-		@Value("${statistics.url:http://kenpom.com/}")
+		@Value("${statistics.url:https://kenpom.com/}")
 		private String statisticsUrl;
 
 		@Value("${output.filename:kenpom.csv}")
@@ -43,6 +45,7 @@ public class KenpomDownloader {
 		private void retrieveStats() throws IOException {
 			RestTemplate restTemplate = new RestTemplate();
 			String s = restTemplate.getForObject(statisticsUrl, String.class);
+			System.out.println(">> s = " + s);
 			try (final FileWriter fw = new FileWriter(outputFileName)) {
 				//Prepare data
 				String[] rawStatistics = s.split("\n");
@@ -53,6 +56,9 @@ public class KenpomDownloader {
 				// System.arraycopy(rawStatistics, 142, tempData, 0, 479);
 
 				// 2016
+//				System.arraycopy(rawStatistics, 143, tempData, 0, 479);
+
+				// 2018
 				System.arraycopy(rawStatistics, 143, tempData, 0, 479);
 
 				//create the stream

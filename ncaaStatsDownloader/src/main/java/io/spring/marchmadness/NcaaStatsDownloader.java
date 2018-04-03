@@ -52,7 +52,7 @@ public class NcaaStatsDownloader {
 
 	public static class DownloaderTask implements CommandLineRunner {
 
-		@Value("${statistics.url:http://www.usatoday.com/sports/ncaab/sagarin/2016/team/}")
+		@Value("${statistics.url:https://www.usatoday.com/sports/ncaab/sagarin/2018/team/}")
 		private String statisticsUrl;
 
 		@Value("${output.filename:output.csv}")
@@ -68,6 +68,7 @@ public class NcaaStatsDownloader {
 		private void retrieveStats() throws IOException {
 			RestTemplate restTemplate = new RestTemplate();
 			String s = restTemplate.getForObject(statisticsUrl, String.class);
+			System.out.println(">> s = " + s);
 			try (final FileWriter fw = new FileWriter(outputFileName)) {
 				statsYear = extractYearFromUrl();
 				//Prepare data
@@ -76,8 +77,14 @@ public class NcaaStatsDownloader {
 						replaceAll("</font>|\\&nbsp|<|>|\\||;|\\(|\\)", "").
 						split("\n");
 
+				int i = 0;
+				for (String rawStatistic : rawStatistics) {
+					System.out.println(">> raw line " + i + " = " + rawStatistic);
+					i++;
+				}
+
 				//create the stream
-				Stream<String> lines = Arrays.asList(rawStatistics).stream();
+				Stream<String> lines = Arrays.asList(rawStatistics).subList(234,690).stream();
 
 				//write statistics data
 				lines.filter(line -> line.startsWith(" ")).
@@ -88,6 +95,7 @@ public class NcaaStatsDownloader {
 			}
 		}
 		private void writeToCsvFile(FileWriter fw, String line) {
+			System.out.println(">> line = " + line);
 			try {
 				fw.write(String.format("%s%n", makeCommaDelimitedLine(line)));
 			} catch (IOException e) {

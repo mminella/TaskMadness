@@ -92,8 +92,9 @@ public class MooreStatsDownloader {
 		}
 		private void writeToCsvFile(FileWriter fw, String line) {
 			try {
-				if (line.startsWith("<A name=\"1alpha\">Alphabetical Listing</a><P></B>") ||
-						line.startsWith("<A HREF=\"http://sonnymoorepowerratings.com\">")){
+				System.out.println(">> line = " + line);
+				if (line.startsWith("<A name=\"alpha\">Alphabetical listing</a><P></B>") ||
+						line.startsWith("<A HREF=\"http://sonnymoorepowerratings.com")){
 					isDataSetComplete = true;
 					return;
 				}
@@ -125,7 +126,7 @@ public class MooreStatsDownloader {
 			return result;
 		}
 		private String extractYearFromUrl(){
-			String result = "2016";
+			String result = "2018";
 			String[] tokens =
 					StringUtils.tokenizeToStringArray(statisticsUrl,"/",true,false);
 

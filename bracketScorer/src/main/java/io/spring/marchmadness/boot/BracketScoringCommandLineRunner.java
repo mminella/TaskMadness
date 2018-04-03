@@ -15,8 +15,11 @@
  */
 package io.spring.marchmadness.boot;
 
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.sql.DataSource;
 
@@ -68,6 +71,8 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 
 		Map<String, Bracket> results = new HashMap<>(2);
 
+		final AtomicInteger bracketCount = new AtomicInteger(0);
+
 		bracketRepository.findViableBrackets()
 				.filter(bracket -> {
 					FinalFourFilterTraversalCallback callback = new FinalFourFilterTraversalCallback();
@@ -91,6 +96,12 @@ public class BracketScoringCommandLineRunner implements CommandLineRunner {
 					return bracket;
 				})
 				.forEach(bracket -> {
+					int curCount = bracketCount.incrementAndGet();
+
+					if(curCount % 100 == 0) {
+						System.out.println(">> bracketCount = " + curCount + " at " + new Date().getTime());
+					}
+
 					if(!results.containsKey(MIN_BRACKET)) {
 						results.put(MIN_BRACKET, bracket);
 						results.put(MAX_BRACKET, bracket);

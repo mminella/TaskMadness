@@ -21,9 +21,9 @@ store the generated brackets.
 . Set up the environment for the datasource
 +
 ```
-export spring_datasource_url=jdbc:mysql://localhost:3306/[yourdb]
+export spring_datasource_url=jdbc:mysql://localhost:3306/task_madness
 export spring_datasource_username=root
-export spring_datasource_password=password
+export spring_datasource_password=p@ssw0rd
 export spring_datasource_driverClassName=com.mysql.jdbc.Driver
 ```
 +
@@ -32,6 +32,7 @@ export spring_datasource_driverClassName=com.mysql.jdbc.Driver
 ```
 java -jar ncaaStatsDownloader/target/ncaaStatsDownloader-0.0.1-SNAPSHOT.jar
 java -jar mooreStatsDownloader/target/mooreStatsDownloader-0.0.1-SNAPSHOT.jar
+java -jar kenpomStatsDownloader/target/kenpomDownloader-0.0.1-SNAPSHOT.jar
 ```
 +
 . Upload Stats to the repository
@@ -39,6 +40,7 @@ java -jar mooreStatsDownloader/target/mooreStatsDownloader-0.0.1-SNAPSHOT.jar
 ```
 java -jar ncaaStatsLoader/target/ncaaStatsLoader-0.0.1-SNAPSHOT.jar
 java -jar mooreStatsLoader/target/mooreStatsLoader-0.0.1-SNAPSHOT.jar
+java -jar kenpomStatsLoader/target/kenpomStatsLoader-0.0.1-SNAPSHOT.jar
 ```
 +
 . Create the brackets:
@@ -50,10 +52,10 @@ java -jar bracketGenerator/target/bracket-generator-0.0.1-SNAPSHOT.jar
 . Score the brackets
 +
 ```
-java -jar java -jar bracketScorer/target/bracket-scorer-0.0.1-SNAPSHOT.jar
+java -jar bracketScorer/target/bracket-scorer-0.0.1-SNAPSHOT.jar
 ```
 
 === Running the UI
 ```
-java -jar java -jar ncaaUI/target/ncaa-ui-0.0.1-SNAPSHOT.jar
+java -jar ncaaUI/target/ncaa-ui-0.0.1-SNAPSHOT.jar
 ```

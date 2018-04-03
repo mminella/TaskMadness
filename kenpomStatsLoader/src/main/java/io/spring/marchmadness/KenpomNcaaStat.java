@@ -27,7 +27,7 @@ public class KenpomNcaaStat {
 	private int tie;
 	private double sos;
 	private double pr;
-	private int year = 2016;
+	private int year = 2018;
 
 	public int getRank() {
 		return rank;
