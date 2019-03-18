@@ -10,7 +10,8 @@ bracket that will either score 800 points or be in the 80th percentile (or highe
 bracket from this system has been entered in the ESPN Tounament Challenge twice:
 
 * 2016 - 740 points - 63 percentile
-* 2018 - 920 points - 83 percentile - http://games.espn.com/tournament-challenge-bracket/2018/en/entry?entryID=14489931
+* 2018 - 920 points - 83 percentile including choosing the correct champion- http://games.espn.com/tournament-challenge-bracket/2018/en/entry?entryID=14489931
+
 
 === Building
 
